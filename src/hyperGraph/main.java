@@ -1,10 +1,12 @@
 /**
  * 
+ *
  */
 package hyperGraph;
 
 /**
- * @author Kai Bielenberg (kai.bielenberg@haw-hamburg.de)
+ * @author Tobias Meurer
+ * @author Stephan Berngruber
  *
  */
 public class main {
