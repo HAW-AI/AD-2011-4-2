@@ -1,14 +1,15 @@
 package hyperGraph.implementations;
 
-import hyperGraph.interfaces.HyperGraph;
+import hyperGraph.interfaces.*;
 
-public class HyperGraphImpl implements HyperGraph {
+final public class HyperGraphImpl implements HyperGraph {
 
 	// public static void main(String[] args){
 	// System.out.println(nAHG);
 	//
 	// }
-
+	
+	private Matrix inzidenzMatrix;
 	final public static HyperGraph emptyHyperGraph = new HyperGraphImpl();
 
 	private HyperGraphImpl() {
