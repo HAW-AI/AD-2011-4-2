@@ -102,8 +102,20 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix removeColumn(int column) {
-		int[] newValues;
-		
+		if (column<width() || column<0) {
+			// TODO Return NotAnMatrix
+			return null;
+		}
+		int[] newValues = new int[values.length-height()];
+		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
+			if (oldIndex%width()!=column) {
+				newValues[newIndex] = values[oldIndex];
+				oldIndex++;
+			} else {
+				oldIndex--;
+				newIndex--;
+			}
+		}
 		
 		// TODO Auto-generated method stub
 		return null;
@@ -111,6 +123,10 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix removeRow(int row) {
+		if (row<height() || row<0) {
+			// TODO Return NotAnMatrix
+			return null;
+		}
 		int[] newValues = new int[values.length-width()];
 		for (int oldRow = 0, newRow = 0; oldRow < values.length; oldRow++, newRow++) {
 			if (row == oldRow) {
@@ -124,13 +140,13 @@ public class MatrixImpl implements Matrix {
 	
 	@Override
 	public String toString(){
-		return "Verdammt, hier fehlt noch die toString-Implementierung!";
+		return ("Verdammt, hier fehlt noch die toString-Implementierung!\n");
 	}
 	
 	private static boolean checkValues(int[] values){
 		for (int i = 0; i < values.length; i++) {
 			int check = values[i];
-			if (check != 0 || check != 1) {
+			if (check != 0 && check != 1) {
 				return false;
 			}
 		}
