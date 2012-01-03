@@ -11,7 +11,7 @@ public class MatrixImpl implements Matrix {
 	final int[] values;
 	final int width, height;
 	
-	public static Matrix create(int width, int height, int[] values){
+	public static Matrix create(int height, int width, int[] values){
 		if (values.length != (width*height) ) {
 			// TODO Return NotAnMatrix
 			return null;
@@ -19,11 +19,11 @@ public class MatrixImpl implements Matrix {
 			// TODO Return NotAnMatrix
 			return null;
 		} else {
-			return new MatrixImpl(width, height, values);
+			return new MatrixImpl(height, width, values);
 		}
 	}
 	
-	private MatrixImpl(int width, int height, int[] values){
+	private MatrixImpl(int height, int width, int[] values){
 		this.width = width;
 		this.height = height;
 		this.values = values;
@@ -77,7 +77,7 @@ public class MatrixImpl implements Matrix {
 				newValues[width]=newColumn[i];
 			}
 		}
-		return create(width+1, height, newValues);
+		return create(height(),width()+1, newValues);
 	}
 
 	@Override
@@ -97,13 +97,25 @@ public class MatrixImpl implements Matrix {
 			System.arraycopy(newRow, 0, newValues, values.length, newRow.length);
 		}
 		// Erzeugen und zurückgeben einer neuen Matrix
-		return create(width, height+1, newValues);
+		return create( height()+1, width(),newValues);
 	}
 
 	@Override
 	public Matrix removeColumn(int column) {
-		int[] newValues;
-		
+		if (column<width() || column<0) {
+			// TODO Return NotAnMatrix
+			return null;
+		}
+		int[] newValues = new int[values.length-height()];
+		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
+			if (oldIndex%width()!=column) {
+				newValues[newIndex] = values[oldIndex];
+				oldIndex++;
+			} else {
+				oldIndex--;
+				newIndex--;
+			}
+		}
 		
 		// TODO Auto-generated method stub
 		return null;
@@ -111,19 +123,30 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix removeRow(int row) {
-		int[] newValues;
-		return null;
+		if (row<height() || row<0) {
+			// TODO Return NotAnMatrix
+			return null;
+		}
+		int[] newValues = new int[values.length-width()];
+		for (int oldRow = 0, newRow = 0; oldRow < values.length; oldRow++, newRow++) {
+			if (row == oldRow) {
+				oldRow++;
+			}
+			// Aktuelle Zeile in neue Matrix kopieren
+			System.arraycopy(values, oldRow*width(), newValues, newRow*width(), width());
+		}
+		return create( height()-1, width(),newValues);
 	}
 	
 	@Override
 	public String toString(){
-		return "Verdammt, hier fehlt noch die toString-Implementierung!";
+		return ("Verdammt, hier fehlt noch die toString-Implementierung!\n");
 	}
 	
 	private static boolean checkValues(int[] values){
 		for (int i = 0; i < values.length; i++) {
 			int check = values[i];
-			if (check != 0 || check != 1) {
+			if (check != 0 && check != 1) {
 				return false;
 			}
 		}

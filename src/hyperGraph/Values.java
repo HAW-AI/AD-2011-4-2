@@ -8,8 +8,8 @@ final public class Values {
 	private Values() {
 	}
 	
-	public static Matrix matrix(int width, int height, int[] values){
-		return MatrixImpl.create(width, height, values);
+	public static Matrix matrix(int height, int width, int[] values){
+		return MatrixImpl.create(height, width, values);
 	}
 	
 	public static HyperGraph emptyHyperGraph(){
