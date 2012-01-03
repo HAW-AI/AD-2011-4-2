@@ -24,25 +24,25 @@ final public class HyperGraphImpl implements HyperGraph {
 	 * @author Tobias Meurer
 	 * @author Stephan Berngruber
 	 * 
-	 * @param args
+	 * @param indexNumbersOfVertices
 	 * 
-	 *            in args you pass the index numbers of the vertices that are 
+	 *            in args you pass the index numbers of the vertices that are
 	 *            connected to the new edge (indexes starting with zero)
 	 * 
 	 * 
 	 */
 	@Override
-	public HyperGraph addEdge(int... args) {
-
+	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices) {
+		// TODO: es dürfen keine Kanten ohne verbindung zu einer Ecke eingefügt werden - muss noch abgefangen werden 
 		// turn the args ary into a List for easier access
 		List<Integer> argsList = new ArrayList<Integer>();
-		for (int i = 0; i < args.length; i++) {
-			argsList.add(args[i]);
+		for (int i = 0; i < indexNumbersOfConnectedVertices.length; i++) {
+			argsList.add(indexNumbersOfConnectedVertices[i]);
 		}
 
-		// values will contain the values that must be passed as param when addColumn is bla on the matrix,
-		// therefore the length of values is the actual matrix-size +1
-		int[] values = new int[inzidenzMatrix.height() + 1];
+		// values will contain the values that must be passed as param when
+		// addColumn is bla on the matrix
+		int[] values = new int[inzidenzMatrix.height()];
 
 		for (int i = 0; i < values.length; i++) {
 			if (argsList.contains(i)) {
@@ -52,33 +52,67 @@ final public class HyperGraphImpl implements HyperGraph {
 			}
 
 		}
-		
 
 		return new HyperGraphImpl(inzidenzMatrix.addColumn(values));
 	}
 
 	@Override
 	public HyperGraph addVertex() {
-		
-		return null;
+		int[] values = new int[inzidenzMatrix.width()];
+		for (int i = 0; i < values.length; i++) {
+			values[i] = 0;
+		}
+		return new HyperGraphImpl(inzidenzMatrix.addRow(values));
+	}
+
+	/**
+	 * @author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * @param indexNumbersOfEdges
+	 * 
+	 *            in args you pass the index numbers of the edges that are
+	 *            connected to the new vertex (indexes starting with zero)
+	 * 
+	 * 
+	 */
+	@Override
+	public HyperGraph addVertex(int... indexNumbersOfConnectedEdges) {
+		// turn the args ary into a List for easier access
+		List<Integer> argsList = new ArrayList<Integer>();
+		for (int i = 0; i < indexNumbersOfConnectedEdges.length; i++) {
+			argsList.add(indexNumbersOfConnectedEdges[i]);
+		}
+
+		// values will contain the values that must be passed as param when
+		// addColumn is bla on the matrix
+		int[] values = new int[inzidenzMatrix.width()];
+
+		for (int i = 0; i < values.length; i++) {
+			if (argsList.contains(i)) {
+				values[i] = i;
+			} else {
+				values[i] = 0;
+			}
+
+		}
+
+		return new HyperGraphImpl(inzidenzMatrix.addColumn(values));
 	}
 
 	@Override
-	public HyperGraph addVertex(int... args) {
-		// TODO Auto-generated method stub
-		return null;
+	public HyperGraph removeEdge(int indexOfEdge) {
+		return new HyperGraphImpl(inzidenzMatrix.removeColumn(indexOfEdge));
 	}
 
 	@Override
-	public HyperGraph removeEdge() {
-		// TODO Auto-generated method stub
-		return null;
+	public HyperGraph removeVertex(int indexOfVertex) {
+		return new HyperGraphImpl(inzidenzMatrix.removeRow(indexOfVertex));
 	}
 
 	@Override
-	public HyperGraph removeVertex() {
-		// TODO Auto-generated method stub
-		return null;
+	public String toString() {
+		return "HyperGraph: " + inzidenzMatrix.toString();
 	}
 
 }

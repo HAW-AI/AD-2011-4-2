@@ -2,15 +2,15 @@ package hyperGraph.interfaces;
 
 public interface HyperGraph {
 
-	public HyperGraph addEdge(int... args);
+	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices);
 
 	public HyperGraph addVertex();
 
-	public HyperGraph addVertex(int... args);
+	public HyperGraph addVertex(int... indexNumbersOfConnectedEdges);
 
-	public HyperGraph removeEdge();
+	public HyperGraph removeEdge(int indexOfEdge);
 
-	public HyperGraph removeVertex();
+	public HyperGraph removeVertex(int indexOfVertex);
 
 	/**
 	 * @author Tobias Meurer
@@ -26,7 +26,7 @@ public interface HyperGraph {
 		};
 
 		@Override
-		public HyperGraph addEdge(int... args) {
+		public HyperGraph addEdge(int... indexNumbersOfConnectedVertices) {
 			return new NotAHyperGraph();
 		}
 
@@ -36,17 +36,17 @@ public interface HyperGraph {
 		}
 
 		@Override
-		public HyperGraph addVertex(int... args) {
+		public HyperGraph addVertex(int... indexNumbersOfConnectedEdges) {
 			return new NotAHyperGraph();
 		}
 
 		@Override
-		public HyperGraph removeEdge() {
+		public HyperGraph removeEdge(int indexOfEdge) {
 			return new NotAHyperGraph();
 		}
 
 		@Override
-		public HyperGraph removeVertex() {
+		public HyperGraph removeVertex(int indexOfVertex) {
 			return new NotAHyperGraph();
 		}
 
