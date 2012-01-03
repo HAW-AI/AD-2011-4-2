@@ -1,4 +1,4 @@
-package hyperGraph;
+package hyperGraph.interfaces;
 
 import java.util.Iterator;
 
