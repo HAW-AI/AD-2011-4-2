@@ -11,7 +11,7 @@ public class MatrixImpl implements Matrix {
 	final int[] values;
 	final int width, height;
 	
-	public static Matrix create(int width, int height, int[] values){
+	public static Matrix create(int height, int width, int[] values){
 		if (values.length != (width*height) ) {
 			// TODO Return NotAnMatrix
 			return null;
@@ -19,11 +19,11 @@ public class MatrixImpl implements Matrix {
 			// TODO Return NotAnMatrix
 			return null;
 		} else {
-			return new MatrixImpl(width, height, values);
+			return new MatrixImpl(height, width, values);
 		}
 	}
 	
-	private MatrixImpl(int width, int height, int[] values){
+	private MatrixImpl(int height, int width, int[] values){
 		this.width = width;
 		this.height = height;
 		this.values = values;
@@ -77,7 +77,7 @@ public class MatrixImpl implements Matrix {
 				newValues[width]=newColumn[i];
 			}
 		}
-		return create(width+1, height, newValues);
+		return create(height(),width()+1, newValues);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class MatrixImpl implements Matrix {
 			System.arraycopy(newRow, 0, newValues, values.length, newRow.length);
 		}
 		// Erzeugen und zurückgeben einer neuen Matrix
-		return create(width, height+1, newValues);
+		return create( height()+1, width(),newValues);
 	}
 
 	@Override
@@ -111,8 +111,15 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix removeRow(int row) {
-		int[] newValues;
-		return null;
+		int[] newValues = new int[values.length-width()];
+		for (int oldRow = 0, newRow = 0; oldRow < values.length; oldRow++, newRow++) {
+			if (row == oldRow) {
+				oldRow++;
+			}
+			// Aktuelle Zeile in neue Matrix kopieren
+			System.arraycopy(values, oldRow*width(), newValues, newRow*width(), width());
+		}
+		return create( height()-1, width(),newValues);
 	}
 	
 	@Override
