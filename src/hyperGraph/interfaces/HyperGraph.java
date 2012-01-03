@@ -2,9 +2,11 @@ package hyperGraph.interfaces;
 
 public interface HyperGraph {
 
-	public HyperGraph addEdge();
+	public HyperGraph addEdge(int... args);
 
 	public HyperGraph addVertex();
+
+	public HyperGraph addVertex(int... args);
 
 	public HyperGraph removeEdge();
 
@@ -24,12 +26,17 @@ public interface HyperGraph {
 		};
 
 		@Override
-		public HyperGraph addEdge() {
+		public HyperGraph addEdge(int... args) {
 			return new NotAHyperGraph();
 		}
 
 		@Override
 		public HyperGraph addVertex() {
+			return new NotAHyperGraph();
+		}
+
+		@Override
+		public HyperGraph addVertex(int... args) {
 			return new NotAHyperGraph();
 		}
 
