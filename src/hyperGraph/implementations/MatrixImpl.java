@@ -1,8 +1,7 @@
 package hyperGraph.implementations;
 
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
 import hyperGraph.interfaces.Matrix;
 
@@ -85,10 +84,13 @@ public class MatrixImpl implements Matrix {
 		int[] newValues;
 		if (newRow.length != width()){
 			// TODO Return NotAnMatrix
-			newValues = null;
+			return null;
 		} else if (!checkValues(newRow)){
 			// TODO Return NotAnMatrix
 			return null;
+		} else if (width()==0) {
+			// Wenn Ecke hinzugefügt werden soll, es jedoch noch keine Kante gibt
+			newValues=newValues=new int[0];
 		} else {
 			// Erzeugen eines neuen Arrays, mit der Länge des alten Value-Arrays + der neuen Row
 			//  Werte von Values werden an den Anfang des neuen Arrays eingefügt
@@ -123,23 +125,68 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix removeRow(int row) {
+		int[] newValues = new int[values.length-width()];
 		if (row<height() || row<0) {
 			// TODO Return NotAnMatrix
 			return null;
-		}
-		int[] newValues = new int[values.length-width()];
-		for (int oldRow = 0, newRow = 0; oldRow < values.length; oldRow++, newRow++) {
-			if (row == oldRow) {
-				oldRow++;
+		} else if (width()==0) {
+			// Wenn Ecke gelöscht werden soll, es jedoch noch keine Kante gibt
+			newValues=new int[0];
+		} else {
+			for (int oldRow = 0, newRow = 0; oldRow < values.length; oldRow++, newRow++) {
+				if (row == oldRow) {
+					oldRow++;
+				}
+				// Aktuelle Zeile in neue Matrix kopieren
+				System.arraycopy(values, oldRow*width(), newValues, newRow*width(), width());
 			}
-			// Aktuelle Zeile in neue Matrix kopieren
-			System.arraycopy(values, oldRow*width(), newValues, newRow*width(), width());
 		}
 		return create( height()-1, width(),newValues);
 	}
 	
 	@Override
 	public String toString(){
+		
+		
+//		StringBuilder result = new StringBuilder("");
+//		// Einmalige StringErzeugung
+//		String space = " ";
+//		String delimiter = "| ";
+//		String nl = "\n";
+//		String nan = "   X";
+//		String rowDelimiter = "-------";
+//		
+//		result.append(nl);
+//
+//		// Zusammenstellen der Ausgabe
+//		for (int i = 0; i < adjazenzMatrix.size(); i++) {
+//			Set<Integer> n = getNeighbourIndexesOf_Directed(i);
+//			StringBuilder row = new StringBuilder();
+//			for (int j = 0; j < adjazenzMatrix.size(); j++) {
+//				result.append(space);
+//				if (n.contains(j)) {
+//					result.append(String.format("%4d", adjazenzMatrix.get(i)
+//							.get(j).value()));
+//				} else {
+//					result.append(nan);
+//				}
+//				result.append(delimiter);
+//				row.append(rowDelimiter);
+//			}
+//			result.append(nl);
+//			result.append(row);
+//			result.append(nl);
+//		}
+//		return result.toString();
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return ("Verdammt, hier fehlt noch die toString-Implementierung!\n");
 	}
 	
