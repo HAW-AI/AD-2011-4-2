@@ -53,7 +53,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		 */
 		if (incidenceMatrix.height() <= maxInt) {
 			throw new IndexOutOfBoundsException(
-					"At least one index of the edges, in the parameter, doesn't exist in the actual graph!");
+					"At least one vertex with an index given in the methodeargument, doesn't exist in the actual graph!");
 		}
 
 		/*
@@ -108,7 +108,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		 */
 		if (incidenceMatrix.width() <= maxInt) {
 			throw new IndexOutOfBoundsException(
-					"At least one index of the edges, in the parameter, doesn't exist in the actual graph!");
+					"At least one edge with an index given in the methodeargument, doesn't exist in the actual graph!");
 		}
 
 		/*
