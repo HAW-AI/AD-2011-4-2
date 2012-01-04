@@ -4,8 +4,6 @@ public interface HyperGraph {
 
 	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices);
 
-	public HyperGraph addVertex();
-
 	public HyperGraph addVertex(int... indexNumbersOfConnectedEdges);
 
 	public HyperGraph removeEdge(int indexOfEdge);
@@ -27,11 +25,6 @@ public interface HyperGraph {
 
 		@Override
 		public HyperGraph addEdge(int... indexNumbersOfConnectedVertices) {
-			return new NotAHyperGraph();
-		}
-
-		@Override
-		public HyperGraph addVertex() {
 			return new NotAHyperGraph();
 		}
 
