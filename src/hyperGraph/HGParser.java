@@ -12,9 +12,15 @@ import java.lang.Integer;
 import java.lang.reflect.Array;
 
 /**
+ * gestohlen von Ben Rexin <benjamin.rexin@haw-hamburg.de> Patrick Detlefsen
+ * <patrick.detlefsen@haw-hamburg.de>
  * 
- * @author Ben Rexin <benjamin.rexin@haw-hamburg.de>
- * @author Patrick Detlefsen <patrick.detlefsen@haw-hamburg.de>
+ * verändert/angepasst von
+ * 
+ * @author Tobias Meurer
+ * @author Stephan Berngruber
+ * 
+ * 
  */
 public class HGParser {
 	private static final String ELEMENT_DELIMITER = " ";
@@ -40,7 +46,7 @@ public class HGParser {
 		for (int line = 0; line < Array.getLength(body); line++) {
 			String[] elements = body[line].split(ELEMENT_DELIMITER);
 			for (int e = 0; e < Array.getLength(elements); e++) {
-				values[width*line+e] = Integer.parseInt(elements[e]);
+				values[width * line + e] = Integer.parseInt(elements[e]);
 			}
 		}
 		return HGRawData.creator(width, height, values);
