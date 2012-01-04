@@ -2,7 +2,7 @@ package hyperGraph.implementations;
 
 import java.util.Arrays;
 import hyperGraph.Values;
-import hyperGraph.interfaces.Matrix;
+import hyperGraph.interfaces.InzidenzMatrix;
 /**
 * 
 * @author Tobias Meurer
@@ -12,7 +12,7 @@ import hyperGraph.interfaces.Matrix;
 * 
 */
 
-public class MatrixImpl implements Matrix {
+public class MatrixImpl implements InzidenzMatrix {
 
 	final int[] values;			//Werte der Matrix sind in diesem 1-Dim Array gespeichert
 	final int width, height;	//Breite und Höhe der Matrix
@@ -29,7 +29,7 @@ public class MatrixImpl implements Matrix {
 	 * @param values Werte der Matix (int[])
 	 * @return Neue Instanz einer InzidenzMatrix
 	 */
-	public static Matrix create(int height, int width, int[] values){
+	public static InzidenzMatrix create(int height, int width, int[] values){
 		if (values.length != (width*height) ) {
 			//stimmt die Anzahl der Elemente nicht mit Breite mal Höhe überein?
 			return Values.notAMatrix();
@@ -122,7 +122,7 @@ public class MatrixImpl implements Matrix {
 	 * @return new InzidenzMatrix
 	 */
 	@Override
-	public Matrix addColumn(int[] newColumn) {
+	public InzidenzMatrix addColumn(int[] newColumn) {
 		int[] newValues;
 		if (newColumn.length != height()){
 			// Enthält die Einzufügende Ecke eine falsche Anzahl an Werten?
@@ -154,7 +154,7 @@ public class MatrixImpl implements Matrix {
 	 * @return new InzidenzMatrix
 	 */
 	@Override
-	public Matrix addRow(int[] newRow) {
+	public InzidenzMatrix addRow(int[] newRow) {
 		int[] newValues;
 		if (newRow.length != width()){
 			// Enthält die Einzufügende Ecke eine falsche Anzahl an Werten?
@@ -185,7 +185,7 @@ public class MatrixImpl implements Matrix {
 	 * @return new InzidenzMatrix
 	 */
 	@Override
-	public Matrix removeColumn(int column) {
+	public InzidenzMatrix removeColumn(int column) {
 		if (column>=width() || column<0) {
 			//Wenn ungültige Spalten nummer übergeben wurde
 			throw new IndexOutOfBoundsException();
@@ -218,7 +218,7 @@ public class MatrixImpl implements Matrix {
 	 * @return new InzidenzMatrix
 	 */
 	@Override
-	public Matrix removeRow(int row) {
+	public InzidenzMatrix removeRow(int row) {
 		int[] newValues = new int[values.length-width()]; //Array für neue Werte, mit entsprechender Länge
 		if (row>=height() || row<0) {
 			//Wenn ungültige Spalten nummer übergeben wurde

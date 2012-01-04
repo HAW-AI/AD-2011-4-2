@@ -1,6 +1,6 @@
 package hyperGraph.implementations;
 
-import hyperGraph.interfaces.Matrix;
+import hyperGraph.interfaces.InzidenzMatrix;
 
 /**
  * 
@@ -13,15 +13,15 @@ import hyperGraph.interfaces.Matrix;
  * 
  */
 
-public class NotAMatrix implements Matrix {
+public class NotAMatrix implements InzidenzMatrix {
 	
-	public static Matrix singleInstance;
+	public static InzidenzMatrix singleInstance;
 
 	/**
 	 * 
 	 * @return Singolton-Objekt of NotAnMatrix
 	 */
-	public static Matrix create(){
+	public static InzidenzMatrix create(){
 		if (singleInstance == null) {
 			singleInstance = new NotAMatrix();
 		}
@@ -48,22 +48,22 @@ public class NotAMatrix implements Matrix {
 	}
 
 	@Override
-	public Matrix addColumn(int[] newColumn) {
+	public InzidenzMatrix addColumn(int[] newColumn) {
 		return singleInstance;
 	}
 
 	@Override
-	public Matrix addRow(int[] newRow) {
+	public InzidenzMatrix addRow(int[] newRow) {
 		return singleInstance;
 	}
 
 	@Override
-	public Matrix removeColumn(int column) {
+	public InzidenzMatrix removeColumn(int column) {
 		return singleInstance;
 	}
 
 	@Override
-	public Matrix removeRow(int row) {
+	public InzidenzMatrix removeRow(int row) {
 		return singleInstance;
 	}
 	

@@ -12,12 +12,12 @@ import hyperGraph.interfaces.*;
 
 final public class HyperGraphImpl implements HyperGraph {
 
-	private final Matrix incidenceMatrix;
+	private final InzidenzMatrix incidenceMatrix;
 	final public static HyperGraph emptyHyperGraph = new HyperGraphImpl(
 			Values.matrix(0, 0, new int[0]));
 
 	// Constructing impossible !
-	private HyperGraphImpl(Matrix incidenceMatrix) {
+	private HyperGraphImpl(InzidenzMatrix incidenceMatrix) {
 		this.incidenceMatrix = incidenceMatrix;
 	}
 
@@ -82,7 +82,7 @@ final public class HyperGraphImpl implements HyperGraph {
 			}
 
 		}
-		Matrix newIncidenceMatrix = incidenceMatrix.addColumn(values);
+		InzidenzMatrix newIncidenceMatrix = incidenceMatrix.addColumn(values);
 		HyperGraph newHyperGraph = getNewHyperGraph(newIncidenceMatrix);
 		return newHyperGraph;
 	}
@@ -102,7 +102,7 @@ final public class HyperGraphImpl implements HyperGraph {
 	public HyperGraph addVertex(int[] vertexValues) {
 
 		// get the new Matrix by calling addRow()
-		Matrix newIncidenceMatrix = incidenceMatrix.addRow(vertexValues);
+		InzidenzMatrix newIncidenceMatrix = incidenceMatrix.addRow(vertexValues);
 		HyperGraph newHyperGraph = getNewHyperGraph(newIncidenceMatrix);
 		return newHyperGraph;
 	}
@@ -167,7 +167,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		}
 
 		// get the new Matrix by calling addRow()
-		Matrix newIncidenceMatrix = incidenceMatrix.addRow(values);
+		InzidenzMatrix newIncidenceMatrix = incidenceMatrix.addRow(values);
 		HyperGraph newHyperGraph = getNewHyperGraph(newIncidenceMatrix);
 		return newHyperGraph;
 	}
@@ -178,7 +178,7 @@ final public class HyperGraphImpl implements HyperGraph {
 	 * @param IncidenceMatrix
 	 * @return
 	 */
-	private HyperGraph getNewHyperGraph(Matrix IncidenceMatrix) {
+	private HyperGraph getNewHyperGraph(InzidenzMatrix IncidenceMatrix) {
 		HyperGraph newHyperGraph;
 		// catch a NotaMatrix if necessary
 		if (IncidenceMatrix instanceof NotAMatrix) {

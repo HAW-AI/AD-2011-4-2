@@ -1,6 +1,5 @@
 package hyperGraph;
 
-import java.util.*;
 
 public class HGRawData {
 
