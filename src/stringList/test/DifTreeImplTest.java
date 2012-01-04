@@ -75,8 +75,8 @@ public class DifTreeImplTest {
     }
     
     @Test
-    public void testDel() {
-        System.out.println("___ TEST DEL ____");
+    public void testDelTail() {
+        System.out.println("___ TEST DEL TAIL____");
         List<Object> l = new ArrayList<Object>();
         l.add("a");
         l.add("b");
@@ -97,8 +97,43 @@ public class DifTreeImplTest {
         test.delTail();
         System.out.println(test);
         test.delTail();
+        System.out.println(test);
         test.delTail();
+        System.out.println(test);
         test.delTail();
+        System.out.println(test);
         assertTrue(true);
         }
+    
+    @Test
+    public void testDelHead() {
+        System.out.println("___ TEST DEL HEAD ____");
+        List<Object> l = new ArrayList<Object>();
+        l.add("a");
+        l.add("b");
+        l.add("c");
+        l.add("d");
+        l.add("e");
+        l.add("f");
+        l.add("g");
+        
+        DifTree test = DifTreeImpl.create(l);
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        assertTrue(true);
+        }
+        
 }
