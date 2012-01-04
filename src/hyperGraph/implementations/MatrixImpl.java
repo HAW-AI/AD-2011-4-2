@@ -1,7 +1,6 @@
 package hyperGraph.implementations;
 
 import java.util.Arrays;
-import java.util.Set;
 
 import hyperGraph.Values;
 import hyperGraph.interfaces.Matrix;
@@ -42,12 +41,11 @@ public class MatrixImpl implements Matrix {
 		return height;
 	}
 
-	@Override
-	public int get(int i, int j) {
-	     if (i < 0 || i >= this.size() || j < 0 || j >= this.size()) {
-	            throw new ArrayIndexOutOfBoundsException();
+	private int get(int i, int j) {
+	     if (i < 0 || i >= this.height() || j < 0 || j >= this.width()) {
+	            throw new IndexOutOfBoundsException();
 	     }
-	        return values[(i + (j * size()))];
+	        return values[(j + (i * width()))];
 	}
 
 
@@ -80,7 +78,7 @@ public class MatrixImpl implements Matrix {
 			return Values.notAMatrix();
 		} else if (width()==0) {
 			// Wenn Ecke hinzugefügt werden soll, es jedoch noch keine Kante gibt
-			newValues=newValues=new int[0];
+			newValues=new int[0];
 		} else {
 			// Erzeugen eines neuen Arrays, mit der Länge des alten Value-Arrays + der neuen Row
 			//  Werte von Values werden an den Anfang des neuen Arrays eingefügt
@@ -95,7 +93,7 @@ public class MatrixImpl implements Matrix {
 	@Override
 	public Matrix removeColumn(int column) {
 		if (column<width() || column<0) {
-			return Values.notAMatrix();
+			throw new IndexOutOfBoundsException();
 		}
 		int[] newValues = new int[values.length-height()];
 		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
@@ -114,7 +112,7 @@ public class MatrixImpl implements Matrix {
 	public Matrix removeRow(int row) {
 		int[] newValues = new int[values.length-width()];
 		if (row<height() || row<0) {
-			return Values.notAMatrix();
+			throw new IndexOutOfBoundsException();
 		} else if (width()==0) {
 			// Wenn Ecke gelöscht werden soll, es jedoch noch keine Kante gibt
 			newValues=new int[0];
@@ -134,46 +132,47 @@ public class MatrixImpl implements Matrix {
 	public String toString(){
 		
 		
-//		StringBuilder result = new StringBuilder("");
-//		// Einmalige StringErzeugung
-//		String space = " ";
-//		String delimiter = "| ";
-//		String nl = "\n";
-//		String nan = "   X";
-//		String rowDelimiter = "-------";
-//		
-//		result.append(nl);
-//
-//		// Zusammenstellen der Ausgabe
-//		for (int i = 0; i < adjazenzMatrix.size(); i++) {
-//			Set<Integer> n = getNeighbourIndexesOf_Directed(i);
-//			StringBuilder row = new StringBuilder();
-//			for (int j = 0; j < adjazenzMatrix.size(); j++) {
-//				result.append(space);
-//				if (n.contains(j)) {
-//					result.append(String.format("%4d", adjazenzMatrix.get(i)
-//							.get(j).value()));
-//				} else {
-//					result.append(nan);
-//				}
-//				result.append(delimiter);
-//				row.append(rowDelimiter);
-//			}
-//			result.append(nl);
-//			result.append(row);
-//			result.append(nl);
-//		}
-//		return result.toString();
+		StringBuilder result = new StringBuilder("");
+		// Einmalige StringErzeugung
+//		final String space = " ";
+		final String delimiter = "| ";
+		final String nl = "\n";
+//		final String connected = " X ";
+//		final String notConnected = " - ";
+		final String rowDelimiter = "------";
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		return ("Verdammt, hier fehlt noch die toString-Implementierung!\n");
+		// Zusammenstellen des AusgabeStrings
+		//   Falls keine Spalten vorhanden
+		if (width()==0 & height()>0){
+			result.append("    |").append(delimiter).append(nl).append(rowDelimiter).append(nl);
+			for (int i = 0; i < height(); i++) {
+				result.append(String.format("v%-3d|", i)).append(delimiter).append(nl);
+			}
+			
+		// Zusammenstellen des AusgabeStrings
+		//   Falls keine Spalten vorhanden
+		} else if (height()==0) {
+			result.append("Empty");
+			
+		// Zusammenstellen des AusgabeStrings
+		//   Normalfall
+		} else {
+			result.append("    |").append(delimiter);
+			StringBuilder breite =  new StringBuilder(rowDelimiter);
+			for (int n = 0; n < width(); n++) {
+				result.append(String.format("e%-3d", n)).append(delimiter);
+				breite.append(rowDelimiter);
+			}
+			result.append(nl).append(breite).append(nl);
+			for (int m = 0; m < height(); m++) {
+				result.append(String.format("v%-3d|", m)).append(delimiter);
+				for (int n = 0; n < width(); n++) {
+					result.append(String.format("%4d", get(m, n))).append(delimiter);
+				}
+				result.append(nl);
+			}
+		}
+		return result.toString();
 	}
 	
 	private static boolean checkValues(int[] values){
