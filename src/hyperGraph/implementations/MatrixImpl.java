@@ -103,7 +103,6 @@ public class MatrixImpl implements Matrix {
 			if (oldIndex!=column+(currentRow*width())) {
 				newValues[newIndex] = values[oldIndex];
 			} else {
-				System.out.println("Bla");
 				newIndex--;
 				currentRow++;
 			}
@@ -114,18 +113,19 @@ public class MatrixImpl implements Matrix {
 	@Override
 	public Matrix removeRow(int row) {
 		int[] newValues = new int[values.length-width()];
-		if (row<height() || row<0) {
+		if (row>=height() || row<0) {
 			throw new IndexOutOfBoundsException();
 		} else if (width()==0) {
 			// Wenn Ecke gelöscht werden soll, es jedoch noch keine Kante gibt
 			newValues=new int[0];
 		} else {
-			for (int oldRow = 0, newRow = 0; oldRow < values.length; oldRow++, newRow++) {
-				if (row == oldRow) {
-					oldRow++;
+			for (int oldRow = 0, newRow = 0; oldRow < height(); oldRow++, newRow++) {
+				if (row != oldRow) {
+					// Aktuelle Zeile in neue Matrix kopieren
+					System.arraycopy(values, oldRow*width(), newValues, newRow*width(), width());
+				} else {
+					newRow--;
 				}
-				// Aktuelle Zeile in neue Matrix kopieren
-				System.arraycopy(values, oldRow*width(), newValues, newRow*width(), width());
 			}
 		}
 		return create( height()-1, width(),newValues);
