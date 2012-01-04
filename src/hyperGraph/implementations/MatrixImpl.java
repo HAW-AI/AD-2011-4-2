@@ -107,7 +107,7 @@ public class MatrixImpl implements Matrix {
 				newIndex--;
 			}
 		}
-		return null;
+		return create( height(), width()-1,newValues);
 	}
 
 	@Override
