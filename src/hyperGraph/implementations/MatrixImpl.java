@@ -3,6 +3,7 @@ package hyperGraph.implementations;
 import java.util.Arrays;
 import java.util.Set;
 
+import hyperGraph.Values;
 import hyperGraph.interfaces.Matrix;
 
 public class MatrixImpl implements Matrix {
@@ -12,11 +13,9 @@ public class MatrixImpl implements Matrix {
 	
 	public static Matrix create(int height, int width, int[] values){
 		if (values.length != (width*height) ) {
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		} else if (!checkValues(values)){
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		} else {
 			return new MatrixImpl(height, width, values);
 		}
@@ -51,21 +50,14 @@ public class MatrixImpl implements Matrix {
 	        return values[(i + (j * size()))];
 	}
 
-//	@Override
-//	public Iterator<Integer> iterator(int i, int j) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public Matrix addColumn(int[] newColumn) {
 		int[] newValues;
 		if (newColumn.length != height()){
-			// TODO Return NotAnMatrix
-			newValues = null;
+			return Values.notAMatrix();
 		} else if (!checkValues(newColumn)){
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		} else {
 			//Erzeugen eines neuen Arrays, mit der Größe der alten Matrix + eine Spalte
 			newValues = new int[values.length+newColumn.length];
@@ -83,11 +75,9 @@ public class MatrixImpl implements Matrix {
 	public Matrix addRow(int[] newRow) {
 		int[] newValues;
 		if (newRow.length != width()){
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		} else if (!checkValues(newRow)){
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		} else if (width()==0) {
 			// Wenn Ecke hinzugefügt werden soll, es jedoch noch keine Kante gibt
 			newValues=newValues=new int[0];
@@ -105,8 +95,7 @@ public class MatrixImpl implements Matrix {
 	@Override
 	public Matrix removeColumn(int column) {
 		if (column<width() || column<0) {
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		}
 		int[] newValues = new int[values.length-height()];
 		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
@@ -118,17 +107,14 @@ public class MatrixImpl implements Matrix {
 				newIndex--;
 			}
 		}
-		
-		// TODO Auto-generated method stub
-		return null;
+		return create( height(), width()-1,newValues);
 	}
 
 	@Override
 	public Matrix removeRow(int row) {
 		int[] newValues = new int[values.length-width()];
 		if (row<height() || row<0) {
-			// TODO Return NotAnMatrix
-			return null;
+			return Values.notAMatrix();
 		} else if (width()==0) {
 			// Wenn Ecke gelöscht werden soll, es jedoch noch keine Kante gibt
 			newValues=new int[0];
