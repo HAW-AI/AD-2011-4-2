@@ -147,7 +147,7 @@ public class MatrixImpl implements Matrix {
 		// Zusammenstellen des AusgabeStrings
 		//   Falls keine Spalten vorhanden
 		if (width()==0 & height()>0){
-			result.append("XXXX|").append(delimiter).append(nl).append(rowDelimiter).append(nl);
+			result.append(" ^^ |").append(delimiter).append(nl).append(rowDelimiter).append(nl);
 			for (int i = 0; i < height(); i++) {
 				result.append(String.format("v%-3d|", i)).append(delimiter).append(nl);
 			}
@@ -160,7 +160,7 @@ public class MatrixImpl implements Matrix {
 		// Zusammenstellen des AusgabeStrings
 		//   Normalfall
 		} else {
-			result.append("XXXX|").append(delimiter);
+			result.append(" ^^ |").append(delimiter);
 			StringBuilder breite =  new StringBuilder(rowDelimiter);
 			for (int n = 0; n < width(); n++) {
 				result.append(String.format("e%-3d", n)).append(delimiter);

@@ -1,10 +1,18 @@
 package hyperGraph.interfaces;
 
+/**
+ * @author Tobias Meurer
+ * @author Stephan Berngruber
+ * 
+ */
+
 public interface HyperGraph {
 
 	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices);
 
-	public HyperGraph addVertex(int... indexNumbersOfConnectedEdges);
+	public HyperGraph addVertexViaIndexes(int... indexNumbersOfConnectedEdges);
+
+	public HyperGraph addVertex(int[] vertexValues);
 
 	public HyperGraph removeEdge(int indexOfEdge);
 
@@ -13,6 +21,10 @@ public interface HyperGraph {
 	/**
 	 * @author Tobias Meurer
 	 * @author Stephan Berngruber
+	 * 
+	 *         Class NotAHyperGraph: inner class only to produce a single
+	 *         NotAHyperGraph-object Every Method of this class returns when
+	 *         called this NotAHyperGraph-object
 	 * 
 	 */
 
@@ -29,7 +41,13 @@ public interface HyperGraph {
 		}
 
 		@Override
-		public HyperGraph addVertex(int... indexNumbersOfConnectedEdges) {
+		public HyperGraph addVertexViaIndexes(
+				int... indexNumbersOfConnectedEdges) {
+			return new NotAHyperGraph();
+		}
+
+		@Override
+		public HyperGraph addVertex(int[] vertexValues) {
 			return new NotAHyperGraph();
 		}
 
@@ -42,7 +60,7 @@ public interface HyperGraph {
 		public HyperGraph removeVertex(int indexOfVertex) {
 			return new NotAHyperGraph();
 		}
-		
+
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub

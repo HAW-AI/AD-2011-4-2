@@ -1,9 +1,14 @@
 package hyperGraph.implementations;
 
 import java.util.*;
-
 import hyperGraph.Values;
 import hyperGraph.interfaces.*;
+
+/**
+ * @author Tobias Meurer
+ * @author Stephan Berngruber
+ * 
+ */
 
 final public class HyperGraphImpl implements HyperGraph {
 
@@ -11,6 +16,7 @@ final public class HyperGraphImpl implements HyperGraph {
 	final public static HyperGraph emptyHyperGraph = new HyperGraphImpl(
 			Values.matrix(0, 0, new int[0]));
 
+	// Constructing impossible !
 	private HyperGraphImpl(Matrix incidenceMatrix) {
 		this.incidenceMatrix = incidenceMatrix;
 	}
@@ -28,11 +34,17 @@ final public class HyperGraphImpl implements HyperGraph {
 	 */
 	@Override
 	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices) {
+
+		/*
+		 * it's not allowed to add a edge without a connection to at least one
+		 * vertex
+		 */
 		if (indexNumbersOfConnectedVertices.length == 0) {
 			return HyperGraph.nAHG;
 		}
 
 		List<Integer> argsList = new ArrayList<Integer>();
+		// maxInt (for precondition check): save the biggest Integer (see below)
 		int maxInt = -1;
 		/*
 		 * turn the args ary into a List for easier access and save the biggest
@@ -79,16 +91,38 @@ final public class HyperGraphImpl implements HyperGraph {
 	 * @author Tobias Meurer
 	 * @author Stephan Berngruber
 	 * 
-	 * @param indexNumbersOfEdges
+	 * @param vertexValues
 	 * 
-	 *            in args you pass the index numbers of the edges that are
-	 *            connected to the new vertex (indexes starting with zero)
+	 *            in vertexValues you pass 0 if not connected to the edge with
+	 *            the index == the index of the array vertexValues, else 1
 	 * 
 	 * 
 	 */
 	@Override
-	public HyperGraph addVertex(int... indexNumbersOfConnectedEdges) {
+	public HyperGraph addVertex(int[] vertexValues) {
+
+		// get the new Matrix by calling addRow()
+		Matrix newIncidenceMatrix = incidenceMatrix.addRow(vertexValues);
+		HyperGraph newHyperGraph = getNewHyperGraph(newIncidenceMatrix);
+		return newHyperGraph;
+	}
+
+	/**
+	 * @author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * @param indexNumbersOfEdges
+	 * 
+	 *            in args you pass the index numbers of the edges that are
+	 *            connected to the new vertex (indexes starting with zero) if no
+	 *            args passed, just an vertex will be added
+	 * 
+	 * 
+	 */
+	@Override
+	public HyperGraph addVertexViaIndexes(int... indexNumbersOfConnectedEdges) {
 		List<Integer> argsList = new ArrayList<Integer>();
+		// maxInt (for preconditioncheck): save the biggest Integer (see below)
 		int maxInt = -1;
 		/*
 		 * turn the args ary into a List for easier access and save the biggest
@@ -139,7 +173,7 @@ final public class HyperGraphImpl implements HyperGraph {
 	}
 
 	/**
-	 * Helper Methode, for
+	 * Helper Methode, inclusive catching a NotaMatrix Object
 	 * 
 	 * @param IncidenceMatrix
 	 * @return
