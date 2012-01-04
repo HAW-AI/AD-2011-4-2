@@ -2,10 +2,25 @@ package hyperGraph.implementations;
 
 import hyperGraph.interfaces.Matrix;
 
+/**
+ * 
+ * @author Tobias Meurer
+ * @author Stephan Berngruber
+ *
+ *
+ * Objekte dieser Klasse werden erzeugt, wenn unzulässige Operationen
+ * (bzw. Operationen mit unzulässigen Werten) auf eine Inzidenzmatrix aufgerufen werden
+ * 
+ */
+
 public class NotAMatrix implements Matrix {
 	
 	public static Matrix singleInstance;
 
+	/**
+	 * 
+	 * @return Singolton-Objekt of NotAnMatrix
+	 */
 	public static Matrix create(){
 		if (singleInstance == null) {
 			singleInstance = new NotAMatrix();
@@ -31,8 +46,6 @@ public class NotAMatrix implements Matrix {
 	public int height() {
 		return 0;
 	}
-
-
 
 	@Override
 	public Matrix addColumn(int[] newColumn) {

@@ -3,6 +3,7 @@ package hyperGraph.interfaces;
  * 
  * 
  * @author Tobias Meurer
+ * @author Stephan Berngruber
  *
  */
 public interface Matrix {
