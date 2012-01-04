@@ -97,15 +97,13 @@ public class MatrixImpl implements Matrix {
 		}
 		int[] newValues = new int[values.length-height()];
 		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
-			if (oldIndex%width()==column) {
+			if (oldIndex%(width()-1)==column) {
 				System.out.println(newValues[newIndex] + "<" + values[oldIndex]);
 				newValues[newIndex] = values[oldIndex];
 				oldIndex++;
 				System.out.println(Arrays.toString(newValues));
 			} else {
 				System.out.println("Bla");
-				oldIndex--;
-				newIndex--;
 			}
 		}
 		return create( height(), width()-1,newValues);
