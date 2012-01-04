@@ -33,7 +33,10 @@ final public class HyperGraphImpl implements HyperGraph {
 	 */
 	@Override
 	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices) {
-		// TODO: es dürfen keine Kanten ohne verbindung zu einer Ecke eingefügt werden - muss noch abgefangen werden 
+		if (indexNumbersOfConnectedVertices.length == 0) {
+			return HyperGraph.nAHG;
+		}
+
 		// turn the args ary into a List for easier access
 		List<Integer> argsList = new ArrayList<Integer>();
 		for (int i = 0; i < indexNumbersOfConnectedVertices.length; i++) {
@@ -52,8 +55,11 @@ final public class HyperGraphImpl implements HyperGraph {
 			}
 
 		}
-
-		return new HyperGraphImpl(inzidenzMatrix.addColumn(values));
+		Matrix newInzidenzMatrix = inzidenzMatrix.addColumn(values);
+		if(newInzidenzMatrix instanceof Values.notAMatrix()){
+			return HyperGraph.nAHG;
+		}
+		return new HyperGraphImpl(newInzidenzMatrix);
 	}
 
 	@Override
@@ -62,7 +68,11 @@ final public class HyperGraphImpl implements HyperGraph {
 		for (int i = 0; i < values.length; i++) {
 			values[i] = 0;
 		}
-		return new HyperGraphImpl(inzidenzMatrix.addRow(values));
+		Matrix newInzidenzMatrix = inzidenzMatrix.addRow(values);
+		if(newInzidenzMatrix instanceof Values.notAMatrix()){
+			return HyperGraph.nAHG;
+		}
+		return new HyperGraphImpl(newInzidenzMatrix);
 	}
 
 	/**
