@@ -18,5 +18,14 @@ public class main {
 				  				 0, 1, 0, 1};
 		Matrix testMatrix = Values.matrix(3, 4, testMatrixArray);
 		System.out.println(testMatrix);
+		
+		Matrix emptyMatrix = Values.matrix(0,0, new int[0]);
+		System.out.println(emptyMatrix);
+		
+		Matrix noEdgeOneVertexMatrix=emptyMatrix.addRow(new int[0]);
+		System.out.println(noEdgeOneVertexMatrix);
+		
+		Matrix noEdgeTwoVertexMatrix=noEdgeOneVertexMatrix.addRow(new int[0]);
+		System.out.println(noEdgeTwoVertexMatrix);
 	}
 }

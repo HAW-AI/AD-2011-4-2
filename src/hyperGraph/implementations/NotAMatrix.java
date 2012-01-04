@@ -32,10 +32,7 @@ public class NotAMatrix implements Matrix {
 		return 0;
 	}
 
-	@Override
-	public int get(int i, int j) {
-		return 0;
-	}
+
 
 	@Override
 	public Matrix addColumn(int[] newColumn) {
