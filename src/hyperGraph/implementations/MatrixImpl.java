@@ -313,7 +313,6 @@ public class MatrixImpl implements Matrix {
 					isNotConnected++;
 				}
 			}
-			
 			// Wenn hier isNotConnected noch immer 0 ist, stand keine 1 in der Spalte,
 			//  somit ist diese ungültig
 			if (isNotConnected==0) {
