@@ -11,7 +11,7 @@ import hyperGraph.interfaces.Matrix;
  * @author Stephan Berngruber
  *
  */
-public class Main1 {
+public class Main {
 	public static void main(String[] args){
 		int[] testMatrixArray = {0, 1, 0, 1,
 				  				 0, 1, 0, 1,
