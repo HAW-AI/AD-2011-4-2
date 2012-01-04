@@ -56,10 +56,13 @@ final public class HyperGraphImpl implements HyperGraph {
 
 		}
 		Matrix newInzidenzMatrix = inzidenzMatrix.addColumn(values);
-		if(newInzidenzMatrix instanceof Values.notAMatrix()){
-			return HyperGraph.nAHG;
+		HyperGraph newHyperGraph;
+		if (newInzidenzMatrix instanceof NotAMatrix) {
+			newHyperGraph = HyperGraph.nAHG;
+		} else {
+			newHyperGraph = new HyperGraphImpl(newInzidenzMatrix);
 		}
-		return new HyperGraphImpl(newInzidenzMatrix);
+		return newHyperGraph;
 	}
 
 	@Override
@@ -69,10 +72,13 @@ final public class HyperGraphImpl implements HyperGraph {
 			values[i] = 0;
 		}
 		Matrix newInzidenzMatrix = inzidenzMatrix.addRow(values);
-		if(newInzidenzMatrix instanceof Values.notAMatrix()){
-			return HyperGraph.nAHG;
+		HyperGraph newHyperGraph;
+		if (newInzidenzMatrix instanceof NotAMatrix) {
+			newHyperGraph = HyperGraph.nAHG;
+		} else {
+			newHyperGraph = new HyperGraphImpl(newInzidenzMatrix);
 		}
-		return new HyperGraphImpl(newInzidenzMatrix);
+		return newHyperGraph;
 	}
 
 	/**
