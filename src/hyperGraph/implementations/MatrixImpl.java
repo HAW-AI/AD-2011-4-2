@@ -59,11 +59,12 @@ public class MatrixImpl implements Matrix {
 		} else {
 			//Erzeugen eines neuen Arrays, mit der Größe der alten Matrix + eine Spalte
 			newValues = new int[values.length+newColumn.length];
+			int widthOfNewValues = width()+1;
 			for (int i = 0; i < height(); i++) {
 				// Kopieren der alten Zeile i in die neue Matrix
-				System.arraycopy(values, i*width(), newValues, i*(width()+1), width);
+				System.arraycopy(values, i*width(), newValues, i*(width()+1), width());
 				// Wert i an Ende der Zeile i in neuer Matrix einfügen
-				newValues[width]=newColumn[i];
+				newValues[width()+widthOfNewValues*i]=newColumn[i];
 			}
 		}
 		return create(height(),width()+1, newValues);
@@ -95,15 +96,16 @@ public class MatrixImpl implements Matrix {
 		if (column>=width() || column<0) {
 			throw new IndexOutOfBoundsException();
 		}
+		
 		int[] newValues = new int[values.length-height()];
+		int currentRow =0;
 		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
-			if (oldIndex%(width()-1)==column) {
-				System.out.println(newValues[newIndex] + "<" + values[oldIndex]);
+			if (oldIndex!=column+(currentRow*width())) {
 				newValues[newIndex] = values[oldIndex];
-				oldIndex++;
-				System.out.println(Arrays.toString(newValues));
 			} else {
 				System.out.println("Bla");
+				newIndex--;
+				currentRow++;
 			}
 		}
 		return create( height(), width()-1,newValues);
@@ -145,7 +147,7 @@ public class MatrixImpl implements Matrix {
 		// Zusammenstellen des AusgabeStrings
 		//   Falls keine Spalten vorhanden
 		if (width()==0 & height()>0){
-			result.append("    |").append(delimiter).append(nl).append(rowDelimiter).append(nl);
+			result.append("XXXX|").append(delimiter).append(nl).append(rowDelimiter).append(nl);
 			for (int i = 0; i < height(); i++) {
 				result.append(String.format("v%-3d|", i)).append(delimiter).append(nl);
 			}
@@ -158,7 +160,7 @@ public class MatrixImpl implements Matrix {
 		// Zusammenstellen des AusgabeStrings
 		//   Normalfall
 		} else {
-			result.append("    |").append(delimiter);
+			result.append("XXXX|").append(delimiter);
 			StringBuilder breite =  new StringBuilder(rowDelimiter);
 			for (int n = 0; n < width(); n++) {
 				result.append(String.format("e%-3d", n)).append(delimiter);

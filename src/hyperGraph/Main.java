@@ -30,5 +30,11 @@ public class Main {
 		
 		Matrix m1 = testMatrix.removeColumn(1);
 		System.out.println(m1);
+		
+		Matrix m2 = testMatrix.removeColumn(2);
+		System.out.println(m2);
+		
+		Matrix m3 = m2.addColumn(new int[]{1, 1, 0});
+		System.out.println(m3);
 	}
 }
