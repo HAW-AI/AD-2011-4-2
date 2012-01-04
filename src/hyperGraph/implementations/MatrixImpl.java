@@ -19,7 +19,10 @@ public class MatrixImpl implements Matrix {
 	
 	
 	
-	/** Creater der Matrix, wird auch durch Factory-Klasse Values aufgerufen
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Creater der Matrix, wird auch durch Factory-Klasse Values aufgerufen
 	 * 
 	 * @param height Höhe der Matrix (int)
 	 * @param width  Breite der Matrix (int)
@@ -42,7 +45,10 @@ public class MatrixImpl implements Matrix {
 		}
 	}
 	
-	/** Konstruktor der Matrix. Ist private, zum Erzeugen neuer Objekte create(...) verwenden!
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Konstruktor der Matrix. Ist private, zum Erzeugen neuer Objekte create(...) verwenden!
 	 * 
 	 * @param height Höhe der Matrix (int)
 	 * @param width  Breite der Matrix (int)
@@ -57,7 +63,10 @@ public class MatrixImpl implements Matrix {
 	
 	
 
-	/**Gibt die Größe der Matrix zurück
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Gibt die Größe der Matrix zurück
 	 * 
 	 * @return size / number of ellements
 	 */
@@ -66,7 +75,10 @@ public class MatrixImpl implements Matrix {
 		return values.length;
 	}
 	
-	/**Gibt die Breite der Matrix zurück
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Gibt die Breite der Matrix zurück
 	 * 
 	 * @return width (n, number of columns)
 	 */
@@ -84,7 +96,10 @@ public class MatrixImpl implements Matrix {
 		return height;
 	}
 
-	/**Gibt ein Element aus der Matrix zurück
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Gibt ein Element aus der Matrix zurück
 	 * 
 	 * @param  i, number of the row
 	 * @param  j, number of the column
@@ -98,7 +113,10 @@ public class MatrixImpl implements Matrix {
 	}
 
 
-	/**Fügt der Matrix eine Spalte hinzu
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Fügt der Matrix eine Spalte hinzu
 	 * 
 	 * @param  int[] mit Werten für die Spalte
 	 * @return new InzidenzMatrix
@@ -127,7 +145,10 @@ public class MatrixImpl implements Matrix {
 		return create(height(),width()+1, newValues);
 	}
 
-	/**Fügt der Matrix eine Zeile hinzu
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Fügt der Matrix eine Zeile hinzu
 	 * 
 	 * @param  int[] mit Werten für die Zeile
 	 * @return new InzidenzMatrix
@@ -155,7 +176,10 @@ public class MatrixImpl implements Matrix {
 		return create(height()+1, width(),newValues);
 	}
 
-	/**Löscht eine Spalte aus der Matrix
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Löscht eine Spalte aus der Matrix
 	 * 
 	 * @param  Nummer der zu löschenden Spalte
 	 * @return new InzidenzMatrix
@@ -185,7 +209,10 @@ public class MatrixImpl implements Matrix {
 		return create( height(), width()-1,newValues);
 	}
 
-	/**Löscht eine Zeile aus der Matrix
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Löscht eine Zeile aus der Matrix
 	 * 
 	 * @param  Nummer der zu löschenden Zeile
 	 * @return new InzidenzMatrix
@@ -214,7 +241,10 @@ public class MatrixImpl implements Matrix {
 		return create( height()-1, width(),newValues);
 	}
 	
-	/**String-Rückgabe der Matrix
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * String-Rückgabe der Matrix
 	 * 
 	 * @return String, formatiert als Matrix
 	 */
@@ -274,7 +304,10 @@ public class MatrixImpl implements Matrix {
 	}
 	
 	
-	/**Prüft, ob int-Array nur 1 und 0 enthält
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Prüft, ob int-Array nur 1 und 0 enthält
 	 * Unsere Matrix speichert nur 1 (Ecke und Kante sind verbunden) und
 	 *                             0 (Ecke und Kante sind nicht verbunden)
 	 * 
@@ -292,7 +325,10 @@ public class MatrixImpl implements Matrix {
 		return true;
 	}
 
-	/**Prüft, ob int-Array, bei angagebner Breite und Höhe der zu erstellenden Matrix, 
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Prüft, ob int-Array, bei angagebner Breite und Höhe der zu erstellenden Matrix, 
 	 *  Spalten enthalten sind, die nur mit Nullen gefüllt sind. Diese Spalten entsprechen
 	 *  Kanetn, die mit KEINER Ecke verbunden sind. Für Graphen sind "freie" Kanten ungültig.
 	 * 
