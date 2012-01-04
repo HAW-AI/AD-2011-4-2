@@ -92,15 +92,18 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix removeColumn(int column) {
-		if (column<width() || column<0) {
+		if (column>=width() || column<0) {
 			throw new IndexOutOfBoundsException();
 		}
 		int[] newValues = new int[values.length-height()];
 		for (int oldIndex = 0, newIndex=0; oldIndex < values.length; oldIndex++, newIndex++) {
-			if (oldIndex%width()!=column) {
+			if (oldIndex%width()==column) {
+				System.out.println(newValues[newIndex] + "<" + values[oldIndex]);
 				newValues[newIndex] = values[oldIndex];
 				oldIndex++;
+				System.out.println(Arrays.toString(newValues));
 			} else {
+				System.out.println("Bla");
 				oldIndex--;
 				newIndex--;
 			}

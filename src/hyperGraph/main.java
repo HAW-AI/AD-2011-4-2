@@ -27,5 +27,8 @@ public class main {
 		
 		Matrix noEdgeTwoVertexMatrix=noEdgeOneVertexMatrix.addRow(new int[0]);
 		System.out.println(noEdgeTwoVertexMatrix);
+		
+		Matrix m1 = testMatrix.removeColumn(1);
+		System.out.println(m1);
 	}
 }
