@@ -42,6 +42,12 @@ public interface HyperGraph {
 		public HyperGraph removeVertex(int indexOfVertex) {
 			return new NotAHyperGraph();
 		}
+		
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return "Not a HyperGraph";
+		}
 
 	}
 
