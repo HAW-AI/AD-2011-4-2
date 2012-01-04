@@ -28,14 +28,12 @@ final public class HyperGraphImpl implements HyperGraph {
 	 */
 	@Override
 	public HyperGraph addEdge(int... indexNumbersOfConnectedVertices) {
-		int heightOfIncidenceMatrix = incidenceMatrix.height();
-
 		if (indexNumbersOfConnectedVertices.length == 0) {
 			return HyperGraph.nAHG;
 		}
 
 		List<Integer> argsList = new ArrayList<Integer>();
-		int maxInt = 0;
+		int maxInt = -1;
 		/*
 		 * turn the args ary into a List for easier access and save the biggest
 		 * Integer in maxInt for precondition Check
@@ -53,7 +51,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		 * lager then the width of the matrix, because then a vertex with that
 		 * index doesn't exist
 		 */
-		if (heightOfIncidenceMatrix <= maxInt) {
+		if (incidenceMatrix.height() <= maxInt) {
 			throw new IndexOutOfBoundsException(
 					"At least one index of the edges, in the parameter, doesn't exist in the actual graph!");
 		}
@@ -62,7 +60,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		 * values will contain the values that must be passed as param when
 		 * addColumn is called on the matrix
 		 */
-		int[] values = new int[heightOfIncidenceMatrix];
+		int[] values = new int[incidenceMatrix.height()];
 
 		for (int i = 0; i < values.length; i++) {
 			if (argsList.contains(i)) {
@@ -90,11 +88,8 @@ final public class HyperGraphImpl implements HyperGraph {
 	 */
 	@Override
 	public HyperGraph addVertex(int... indexNumbersOfConnectedEdges) {
-
-		int widthOfIncidenceMatrix = incidenceMatrix.width();
-
 		List<Integer> argsList = new ArrayList<Integer>();
-		int maxInt = 0;
+		int maxInt = -1;
 		/*
 		 * turn the args ary into a List for easier access and save the biggest
 		 * Integer in maxInt for precondition Check
@@ -111,7 +106,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		 * lager then the width of the matrix, because then an edge with that
 		 * index doesn't exist
 		 */
-		if (widthOfIncidenceMatrix <= maxInt) {
+		if (incidenceMatrix.width() <= maxInt) {
 			throw new IndexOutOfBoundsException(
 					"At least one index of the edges, in the parameter, doesn't exist in the actual graph!");
 		}
@@ -120,7 +115,7 @@ final public class HyperGraphImpl implements HyperGraph {
 		 * values will contain the values that must be passed as param when
 		 * addColumn() is called on the matrix
 		 */
-		int[] values = new int[widthOfIncidenceMatrix];
+		int[] values = new int[incidenceMatrix.width()];
 
 		/*
 		 * the matrix expects just 0 (if there is no connection to the Edge) and
@@ -172,7 +167,7 @@ final public class HyperGraphImpl implements HyperGraph {
 
 	@Override
 	public String toString() {
-		return "HyperGraph: " + incidenceMatrix.toString();
+		return "HyperGraph:\n" + incidenceMatrix.toString();
 	}
 
 }
