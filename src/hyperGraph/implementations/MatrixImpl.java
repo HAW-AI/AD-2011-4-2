@@ -2,6 +2,7 @@ package hyperGraph.implementations;
 
 import java.util.Arrays;
 
+
 import hyperGraph.Values;
 import hyperGraph.interfaces.Matrix;
 
@@ -14,6 +15,8 @@ public class MatrixImpl implements Matrix {
 		if (values.length != (width*height) ) {
 			return Values.notAMatrix();
 		} else if (!checkValues(values)){
+			return Values.notAMatrix();
+		} else if (hasInvalidColumns(height, width, values)){
 			return Values.notAMatrix();
 		} else {
 			return new MatrixImpl(height, width, values);
@@ -86,7 +89,7 @@ public class MatrixImpl implements Matrix {
 			newValues = Arrays.copyOf(values, (values.length+newRow.length));
 			// Kopieren der Werte der neuen Row an das Ende des neuen Arrays
 			System.arraycopy(newRow, 0, newValues, values.length, newRow.length);
-		}
+		}	
 		// Erzeugen und zurückgeben einer neuen Matrix
 		return create( height()+1, width(),newValues);
 	}
@@ -188,6 +191,20 @@ public class MatrixImpl implements Matrix {
 		return true;
 	}
 
+	private static boolean hasInvalidColumns(int h, int w, int[] vals){
+		for (int spalte = 0; spalte < w; spalte++) {
+			int isNotConnected=0;
+			for (int zeile = 0; zeile < h; zeile++) {
+				if (vals[spalte+zeile*w]==1) {
+					isNotConnected++;
+				}
+			}
+			if (isNotConnected==0) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 }

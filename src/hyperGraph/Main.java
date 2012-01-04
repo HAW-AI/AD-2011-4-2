@@ -13,9 +13,9 @@ import hyperGraph.interfaces.Matrix;
  */
 public class Main {
 	public static void main(String[] args){
-		int[] testMatrixArray = {0, 1, 0, 1,
-				  				 0, 1, 0, 1,
-				  				 0, 1, 0, 1};
+		int[] testMatrixArray = {1, 1, 0, 1,
+				  				 0, 1, 1, 1,
+				  				 1, 1, 1, 1};
 		Matrix testMatrix = Values.matrix(3, 4, testMatrixArray);
 		System.out.println("testMatrix");
 		System.out.println(testMatrix);
@@ -51,5 +51,14 @@ public class Main {
 		Matrix m5 = m4.addRow(new int[]{1,0,1, 0});
 		System.out.println("m5");
 		System.out.println(m5);
+		
+		Matrix m6 = m5.addColumn(new int[]{0,0,0});
+		System.out.println("m6");
+		System.out.println(m6);
+		
+		Matrix m7 = m5.removeRow(1);
+		System.out.println("m7");
+		System.out.println(m7);
+		
 	}
 }
