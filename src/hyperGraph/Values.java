@@ -12,6 +12,10 @@ final public class Values {
 		return MatrixImpl.create(height, width, values);
 	}
 	
+	public static Matrix notAMatrix(){
+		return NotAMatrix.create();
+	}
+	
 	public static HyperGraph emptyHyperGraph(){
 		return HyperGraphImpl.emptyHyperGraph;		
 	}
