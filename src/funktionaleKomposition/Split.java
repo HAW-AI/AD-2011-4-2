@@ -1,3 +1,5 @@
+package funktionaleKomposition;
+
 import java.util.Arrays;
 
 
