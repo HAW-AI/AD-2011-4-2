@@ -1,4 +1,4 @@
-
+package funktionaleKomposition;
 public interface Split {
 	/**
 	 * Kopiert den Split Objekt und gibt ein neues Split Objekt zurück, 

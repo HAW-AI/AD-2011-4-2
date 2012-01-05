@@ -1,3 +1,5 @@
+package funktionaleKomposition;
+
 
 import static org.junit.Assert.*;
 
