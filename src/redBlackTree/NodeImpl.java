@@ -1,5 +1,7 @@
 package redBlackTree;
 
+import redBlackTree.interfaces.Node;
+
 /* Copyright (c) 2012 the authors listed at the following URL, and/or
 the authors of referenced articles or incorporated external code:
 http://en.literateprograms.org/Red-black_tree_(Java)?action=history&offset=20100112141306
@@ -28,16 +30,16 @@ Retrieved from: http://en.literateprograms.org/Red-black_tree_(Java)?oldid=16622
 
 enum Color { RED, BLACK }
 
-class Node<K extends Comparable<? super K>,V>
+class NodeImpl<K extends Comparable<? super K>,V> implements Node<K, V>
 {
     public K key;
     public V value;
-    public Node<K,V> left;
-    public Node<K,V> right;
-    public Node<K,V> parent;
+    public NodeImpl<K,V> left;
+    public NodeImpl<K,V> right;
+    public NodeImpl<K,V> parent;
     public Color color;
 
-    public Node(K key, V value, Color nodeColor, Node<K,V> left, Node<K,V> right) {
+    public NodeImpl(K key, V value, Color nodeColor, NodeImpl<K,V> left, NodeImpl<K,V> right) {
         this.key = key;
         this.value = value;
         this.color = nodeColor;
@@ -48,13 +50,15 @@ class Node<K extends Comparable<? super K>,V>
         this.parent = null;
     }
 
-    public Node<K,V> grandparent() {
+    @Override
+	public Node<K, V> grandparent() {
         assert parent != null; // Not the root node
         assert parent.parent != null; // Not child of root
         return parent.parent;
     }
 
-    public Node<K,V> sibling() {
+    @Override
+	public Node<K, V> sibling() {
         assert parent != null; // Root node has no sibling
         if (this == parent.left)
             return parent.right;
@@ -62,7 +66,8 @@ class Node<K extends Comparable<? super K>,V>
             return parent.left;
     }
 
-    public Node<K,V> uncle() {
+    @Override
+	public Node<K, V> uncle() {
         assert parent != null; // Root node has no uncle
         assert parent.parent != null; // Children of root have no uncle
         return parent.sibling();

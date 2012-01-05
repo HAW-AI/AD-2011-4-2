@@ -1,5 +1,8 @@
 package redBlackTree;
 
+import redBlackTree.interfaces.Node;
+import redBlackTree.interfaces.RBTree;
+
 /* Copyright (c) 2012 the authors listed at the following URL, and/or
 the authors of referenced articles or incorporated external code:
 http://en.literateprograms.org/Red-black_tree_(Java)?action=history&offset=20100112141306
@@ -26,26 +29,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Retrieved from: http://en.literateprograms.org/Red-black_tree_(Java)?oldid=16622
 */
 
-public class RBTree<K extends Comparable<? super K>,V>
+public class RBTreeImpl<K extends Comparable<? super K>,V> implements RBTree<K, V>
 {
-    public static final boolean VERIFY_RBTREE = true;
     private static final int INDENT_STEP = 4;
 
-    public Node<K,V> root;
+    public NodeImpl<K,V> root;
 
     /**
      * creates an empty red-black tree
      */
-    public RBTree() {
+    public RBTreeImpl() {
         root = null;
         verifyProperties();
     }
 
-    /**
-     * checks all five properties to verify the validity of the tree
-     * expensive function -> only executed if VERIFY_RBTREE is true
-     */
-    public void verifyProperties() {
+    /* (non-Javadoc)
+	 * @see redBlackTree.RBTree#verifyProperties()
+	 */
+    @Override
+	public void verifyProperties() {
         if (VERIFY_RBTREE) {
             verifyProperty1(root);
             verifyProperty2(root);
@@ -60,7 +62,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * each node is either red or black
      * -> fails if color reference is null
      */
-    private static void verifyProperty1(Node<?,?> n) {
+    private static void verifyProperty1(NodeImpl<?,?> n) {
         assert nodeColor(n) == Color.RED || nodeColor(n) == Color.BLACK;
         if (n == null) return;
         verifyProperty1(n.left);
@@ -71,7 +73,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * verifies property 2:
      * the root node is black
      */
-    private static void verifyProperty2(Node<?,?> root) {
+    private static void verifyProperty2(NodeImpl<?,?> root) {
         assert nodeColor(root) == Color.BLACK;
     }
 
@@ -80,7 +82,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * all leaves are black and contain no data
      * (leaves are always null)
      */
-    private static Color nodeColor(Node<?,?> n) {
+    private static Color nodeColor(NodeImpl<?,?> n) {
         return n == null ? Color.BLACK : n.color;
     }
 
@@ -89,7 +91,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * every red node has two children, and both are black
      * (or equivalently, the parent of every red node is black)
      */
-    private static void verifyProperty4(Node<?,?> n) {
+    private static void verifyProperty4(NodeImpl<?,?> n) {
         if (nodeColor(n) == Color.RED) {
             assert nodeColor(n.left)   == Color.BLACK;
             assert nodeColor(n.right)  == Color.BLACK;
@@ -104,11 +106,11 @@ public class RBTree<K extends Comparable<? super K>,V>
      * verifies property 5:
      * all paths from any given node to its leaf nodes contain the same number of black nodes
      */
-    private static void verifyProperty5(Node<?,?> root) {
+    private static void verifyProperty5(NodeImpl<?,?> root) {
         verifyProperty5Helper(root, 0, -1);
     }
 
-    private static int verifyProperty5Helper(Node<?,?> n, int blackCount, int pathBlackCount) {
+    private static int verifyProperty5Helper(NodeImpl<?,?> n, int blackCount, int pathBlackCount) {
         if (nodeColor(n) == Color.BLACK) {
             blackCount++;
         }
@@ -125,11 +127,12 @@ public class RBTree<K extends Comparable<? super K>,V>
         return pathBlackCount;
     }
 
-    /**
-     * searches for a given key and returns its value
-     */
-    public V lookup(K key) {
-        Node<K,V> n = lookupNode(key);
+    /* (non-Javadoc)
+	 * @see redBlackTree.RBTree#lookup(K)
+	 */
+    @Override
+	public V lookup(K key) {
+        NodeImpl<K,V> n = lookupNode(key);
         return n == null ? null : n.value;
     }
     
@@ -137,8 +140,8 @@ public class RBTree<K extends Comparable<? super K>,V>
      * helper function
      * searches for a given key and returns its node
      */
-    private Node<K,V> lookupNode(K key) {
-        Node<K,V> n = root;
+    private Node<K, V> lookupNode(K key) {
+        NodeImpl<K,V> n = root;
         while (n != null) {
             int compResult = key.compareTo(n.key);
             if (compResult == 0) {
@@ -156,8 +159,8 @@ public class RBTree<K extends Comparable<? super K>,V>
     /**
      * rotates a (sub)tree to keep the tree balanced after insertion/deletion
      */
-    private void rotateLeft(Node<K,V> n) {
-        Node<K,V> r = n.right;
+    private void rotateLeft(NodeImpl<K,V> n) {
+        NodeImpl<K,V> r = n.right;
         replaceNode(n, r);
         n.right = r.left;
         if (r.left != null) {
@@ -167,8 +170,8 @@ public class RBTree<K extends Comparable<? super K>,V>
         n.parent = r;
     }
 
-    private void rotateRight(Node<K,V> n) {
-        Node<K,V> l = n.left;
+    private void rotateRight(NodeImpl<K,V> n) {
+        NodeImpl<K,V> l = n.left;
         replaceNode(n, l);
         n.left = l.right;
         if (l.right != null) {
@@ -181,7 +184,7 @@ public class RBTree<K extends Comparable<? super K>,V>
     /**
      * cuts a node away from its parent, substituting a new node or null in its place
      */
-    private void replaceNode(Node<K,V> oldn, Node<K,V> newn) {
+    private void replaceNode(NodeImpl<K,V> oldn, NodeImpl<K,V> newn) {
         if (oldn.parent == null) {
             root = newn;
         } else {
@@ -195,18 +198,16 @@ public class RBTree<K extends Comparable<? super K>,V>
         }
     }
 
-    /**
-     * first step of insertion:
-     * insert the key as it would be inserted into an ordinary binary search tree
-     * if the key already exists, the value is replaced
-     * else a new red node is created at the insert place
-     */
-    public void insert(K key, V value) {
-        Node<K,V> insertedNode = new Node<K,V>(key, value, Color.RED, null, null);
+    /* (non-Javadoc)
+	 * @see redBlackTree.RBTree#insert(K, V)
+	 */
+    @Override
+	public void insert(K key, V value) {
+        NodeImpl<K,V> insertedNode = new NodeImpl<K,V>(key, value, Color.RED, null, null);
         if (root == null) {
             root = insertedNode;
         } else {
-            Node<K,V> n = root;
+            NodeImpl<K,V> n = root;
             while (true) {
                 int compResult = key.compareTo(n.key);
                 if (compResult == 0) {
@@ -240,7 +241,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * the new node is now the root node of the tree
      * -> the new node is colored black
      */
-    private void insertCase1(Node<K,V> n) {
+    private void insertCase1(NodeImpl<K,V> n) {
         if (n.parent == null)
             n.color = Color.BLACK;
         else
@@ -252,7 +253,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * the new node has a black parent
      * -> all properties are still satisfied
      */
-    private void insertCase2(Node<K,V> n) {
+    private void insertCase2(NodeImpl<K,V> n) {
         if (nodeColor(n.parent) == Color.BLACK)
             return; // Tree is still valid
         else
@@ -267,7 +268,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * => grandparent may now violate the properties
      * 		-> execute the insertion cases for the grandparent
      */
-    void insertCase3(Node<K,V> n) {
+    void insertCase3(NodeImpl<K,V> n) {
         if (nodeColor(n.uncle()) == Color.RED) {
             n.parent.color = Color.BLACK;
             n.uncle().color = Color.BLACK;
@@ -285,7 +286,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * b) the new node is the left child of its parent and the parent is the right child of the grandparent
      * -> rotate right about the parent
      */
-    void insertCase4(Node<K,V> n) {
+    void insertCase4(NodeImpl<K,V> n) {
         if (n == n.parent.right && n.parent == n.grandparent().left) {
             rotateLeft(n.parent);
             n = n.left;
@@ -303,7 +304,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * b) new node is the right child of its parent and the parent is the right child of the grandparent
      * -> rotate left about the grandparent
      */
-    void insertCase5(Node<K,V> n) {
+    void insertCase5(NodeImpl<K,V> n) {
         n.parent.color = Color.BLACK;
         n.grandparent().color = Color.RED;
         if (n == n.parent.left && n.parent == n.grandparent().left) {
@@ -314,11 +315,12 @@ public class RBTree<K extends Comparable<? super K>,V>
         }
     }
 
-    /**
-     * deletes a key-value pair
-     */
-    public void delete(K key) {
-        Node<K,V> n = lookupNode(key);
+    /* (non-Javadoc)
+	 * @see redBlackTree.RBTree#delete(K)
+	 */
+    @Override
+	public void delete(K key) {
+        NodeImpl<K,V> n = lookupNode(key);
         if (n == null)
             return;  // Key not found, do nothing
         
@@ -326,7 +328,7 @@ public class RBTree<K extends Comparable<? super K>,V>
         //(the rightmost element in the left subtree) is copied into the node to be
         // deleted and the predecessor node is deleted
         if (n.left != null && n.right != null) {
-            Node<K,V> pred = maximumNode(n.left);
+            NodeImpl<K,V> pred = maximumNode(n.left);
             n.key   = pred.key;
             n.value = pred.value;
             n = pred;
@@ -334,7 +336,7 @@ public class RBTree<K extends Comparable<? super K>,V>
 
         //if there is at most one child, the node is replaced by the child (or null)
         assert n.left == null || n.right == null;
-        Node<K,V> child = (n.right == null) ? n.left : n.right;
+        NodeImpl<K,V> child = (n.right == null) ? n.left : n.right;
         if (nodeColor(n) == Color.BLACK) {
             n.color = nodeColor(child);
             //if the color of the node to be deleted is black and the child can't be changed from red to black
@@ -354,7 +356,7 @@ public class RBTree<K extends Comparable<? super K>,V>
     /**
      * returns the maximum node of a (sub)tree
      */
-    private static <K extends Comparable<? super K>,V> Node<K,V> maximumNode(Node<K,V> n) {
+    private static <K extends Comparable<? super K>,V> Node<K, V> maximumNode(NodeImpl<K,V> n) {
         assert n != null;
         while (n.right != null) {
             n = n.right;
@@ -367,7 +369,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * node is the root node
      * -> no properties are violated
      */
-    private void deleteCase1(Node<K,V> n) {
+    private void deleteCase1(NodeImpl<K,V> n) {
         if (n.parent == null)
             return;
         else
@@ -380,7 +382,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * -> exchange the colors of the parent and the sibling
      * -> rotate about the parent
      */
-    private void deleteCase2(Node<K,V> n) {
+    private void deleteCase2(NodeImpl<K,V> n) {
         if (nodeColor(n.sibling()) == Color.RED) {
             n.parent.color = Color.RED;
             n.sibling().color = Color.BLACK;
@@ -399,7 +401,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * => one less black node on every path through the parent
      * 		-> run the deletion cases for the parent 
      */
-    private void deleteCase3(Node<K,V> n) {
+    private void deleteCase3(NodeImpl<K,V> n) {
         if (nodeColor(n.parent) == Color.BLACK &&
             nodeColor(n.sibling()) == Color.BLACK &&
             nodeColor(n.sibling().left) == Color.BLACK &&
@@ -417,7 +419,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * the nodes sibling and sibling's children are black, the parent is red
      * -> exchange the colors of the sibling and the parent
      */
-    private void deleteCase4(Node<K,V> n) {
+    private void deleteCase4(NodeImpl<K,V> n) {
         if (nodeColor(n.parent) == Color.RED &&
             nodeColor(n.sibling()) == Color.BLACK &&
             nodeColor(n.sibling().left) == Color.BLACK &&
@@ -443,7 +445,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * 		-> exchange the colors of the sibling and its right child and
      * 		   rotate left about the sibling
      */
-    private void deleteCase5(Node<K,V> n) {
+    private void deleteCase5(NodeImpl<K,V> n) {
         if (n == n.parent.left &&
             nodeColor(n.sibling()) == Color.BLACK &&
             nodeColor(n.sibling().left) == Color.RED &&
@@ -478,7 +480,7 @@ public class RBTree<K extends Comparable<? super K>,V>
      * 		-> color the sibling's left child black
      * 		-> rotate right about the parent
      */
-    private void deleteCase6(Node<K,V> n) {
+    private void deleteCase6(NodeImpl<K,V> n) {
         n.sibling().color = nodeColor(n.parent);
         n.parent.color = Color.BLACK;
         if (n == n.parent.left) {
@@ -494,17 +496,15 @@ public class RBTree<K extends Comparable<? super K>,V>
         }
     }
 
-    /**
-     * prints the tree to standard output
-     * prints the right subtree before the left subtree
-     * 	  -> the tree is displayed sideways
-     * only the keys are displayed
-     */
-    public void print() {
+    /* (non-Javadoc)
+	 * @see redBlackTree.RBTree#print()
+	 */
+    @Override
+	public void print() {
         printHelper(root, 0);
     }
 
-    private static void printHelper(Node<?,?> n, int indent) {
+    private static void printHelper(NodeImpl<?,?> n, int indent) {
         if (n == null) {
             System.out.print("<empty tree>");
             return;

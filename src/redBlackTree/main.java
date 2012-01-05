@@ -3,6 +3,8 @@
  */
 package redBlackTree;
 
+import redBlackTree.interfaces.RBTree;
+
 /* Copyright (c) 2012 the authors listed at the following URL, and/or
 the authors of referenced articles or incorporated external code:
 http://en.literateprograms.org/Red-black_tree_(Java)?action=history&offset=20100112141306
@@ -32,7 +34,7 @@ Retrieved from: http://en.literateprograms.org/Red-black_tree_(Java)?oldid=16622
 public class main {
 
 	public static void main(String[] args) {
-        RBTree<Integer,Integer> t = new RBTree<Integer,Integer>();
+        RBTree<Integer, Integer> t = new RBTreeImpl<Integer,Integer>();
         t.print();
 
         java.util.Random gen = new java.util.Random();
