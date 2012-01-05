@@ -43,6 +43,7 @@ public class DifTreeImplTest {
      */
     @Test
     public void testGet() {
+        System.out.println("\n___ TEST Get____\n");
         List<Object> l = new ArrayList<Object>();
         l.add("a");
         l.add("b");
@@ -62,21 +63,27 @@ public class DifTreeImplTest {
     }
     @Test
     public void testAdd() {
+        System.out.println("\n___ TEST SimpleAdd____\n");
         List<Object> l = new ArrayList<Object>();
         l.add("a");
         l.add("b");
         l.add("c");
         DifTree test = DifTreeImpl.create(l);
+        System.out.println("Before:");
+        System.out.println(test);
+        System.out.println("\n Items to be Added:\n Head: # and Tail: d\n");
         test.addHead("#");
         test.addTail("d");
+        System.out.println("Result:");
         System.out.println(test);
+        assertEquals("#", test.get(1));
         assertTrue(true);
         
     }
     
     @Test
     public void testDelTail() {
-        System.out.println("___ TEST DEL TAIL____");
+        System.out.println("\n___ TEST DEL TAIL____\n");
         List<Object> l = new ArrayList<Object>();
         l.add("a");
         l.add("b");
@@ -87,6 +94,7 @@ public class DifTreeImplTest {
         l.add("g");
         
         DifTree test = DifTreeImpl.create(l);
+        System.out.println("Del everything from the Tail");
         System.out.println(test);
         test.delTail();
         System.out.println(test);
@@ -107,7 +115,7 @@ public class DifTreeImplTest {
     
     @Test
     public void testDelHead() {
-        System.out.println("___ TEST DEL HEAD ____");
+        System.out.println("\n___ TEST DEL HEAD ____\n");
         List<Object> l = new ArrayList<Object>();
         l.add("a");
         l.add("b");
@@ -118,8 +126,7 @@ public class DifTreeImplTest {
         l.add("g");
         
         DifTree test = DifTreeImpl.create(l);
-        System.out.println(test);
-        test.delHead();
+        System.out.println("Del everything from the head");
         System.out.println(test);
         test.delHead();
         System.out.println(test);
@@ -135,5 +142,31 @@ public class DifTreeImplTest {
         System.out.println(test);
         assertTrue(true);
         }
+    
+    @Test
+    public void testDelBoth() {
+        System.out.println("___ VARIOUS ADD AND DEL TEST____\n");
+        DifTree test = DifTreeImpl.create("a","b", "c", "d", 4, 3,2,1);
+        System.out.println("Bevore:");
+        System.out.println(test);
+        System.out.println("Items Added: (Head: x), (Tail: blub)");
+        test.addHead("x");
+        test.addTail("blub");
+        System.out.println("Various deletes");
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delTail();
+        System.out.println(test);
+        test.delTail();
+        System.out.println(test);
+        test.delTail();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        test.delHead();
+        System.out.println(test);
+        assertTrue(true);
+    }
         
 }
