@@ -25,6 +25,7 @@ public final class HGController {
 			createHyperGraph(rawData);
 		} else {
 			HGRawData rawData = HGParser.parse("HyperGraphFiles/someGraph.hg");
+			//HGRawData rawData = HGParser.parse("HyperGraphFiles/GraphAusAufgabe.hg");
 			createHyperGraph(rawData);
 		}
 	}
