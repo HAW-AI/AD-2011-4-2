@@ -200,25 +200,24 @@ public class DifTreeImpl implements DifTree {
      * @see stringList.interfaces.DifTree#addHead(java.lang.Object)
      */
     @Override
-    public void addHead(Object o) {
-        // The former head of the list is the Item which is the leftest item in the tree.
-        // we go left until it is not more possible and then add the item.
-        this.setIndex(this.getIndex() +1);
-        this.addHead_(o);
-//        if (left == null) {
-//            left = DifTreeImpl.create(o, true);
-//        } else {
-//            ((DifTreeImpl) left).addHead_(o);
-//        }
-
+    public boolean addHead(Object o) {
+       boolean result = false;
+       result = this.addHead_(o);
+       System.out.println(result);
+       if (result) this.setIndex(this.getIndex() +1);
+        
+       return result;
     }
     
-    private void addHead_(Object o) {
+    private boolean addHead_(Object o) {
+        boolean result = false;
         if (left == null) {
             left = DifTreeImpl.create(o, true);
+            result = true;
         } else {
-            ((DifTreeImpl) left).addHead_(o);
+            result = ((DifTreeImpl) left).addHead_(o);
         }
+        return result;
     }
 
     /*
@@ -227,13 +226,16 @@ public class DifTreeImpl implements DifTree {
      * @see stringList.interfaces.DifTree#addTail(java.lang.Object)
      */
     @Override
-    public void addTail(Object o) {
+    public boolean addTail(Object o) {
+        boolean result = false;
         //Same as addHead, but we only search right.
         if (right == null) {
             right = DifTreeImpl.create(o, false);
+            result = true;
         } else {
-            right.addTail(o);
+            return right.addTail(o);
         }
+        return result;
     }
 
     /*
@@ -242,42 +244,15 @@ public class DifTreeImpl implements DifTree {
      * @see stringList.interfaces.DifTree#delHead()
      */
     @Override
-    public void delHead() {
-        //Deleting is a little more Complex. First we need to check if
-        //The item itself is only a Leaf. 
-        this.setIndex(this.getIndex() -1 );
-        this.delHead_();
-//        if (!isLeaf()) {
-//            //The head is the item witch is on the leftest side of the tree.
-//            //therefor we search this item.
-//            // It is found if the item has no more Left Side set. Then the 
-//            // left side from the Parent of this Item is set to null
-//            // This Equals deleting the Head Item of the List.
-//            if (left != null) {
-//                if (left.isLeaf()) {
-//                    left = null;
-//                //If the Item which is to be deleted is no leav, we have to do a 
-//                // little reconstruction in the Tree. 
-//                // The deleted Item has an Item on its rigth side. Which now 
-//                // needs to be reindexed and then put one level upwards.
-//                } else if (left.getLeft() == null) {// and right.getLeft != null
-//                    int tempIndex = left.getIndex();
-//                    left = left.getRight();
-//                    left.setIndex(left.getIndex() + tempIndex);
-//                } else {
-//                    left.delHead();
-//                }
-//            } else if (left == null) {
-//                this.setIndex(this.getIndex() + right.getIndex());
-//                this.elem = right.getElem();
-//                DifTree tempRight = right.getRight();
-//                this.left = right.getLeft();
-//                this.right = tempRight;
-//            }
-//        }
+    public boolean delHead() {
+        boolean result = false;
+        result = this.delHead_();
+        if (result) this.setIndex(this.getIndex() -1 );
+        return result;
     }
     
-    private void delHead_() {
+    private boolean delHead_() {
+        boolean result = false;
         if (!isLeaf()) {
             //The head is the item witch is on the leftest side of the tree.
             //therefor we search this item.
@@ -287,6 +262,7 @@ public class DifTreeImpl implements DifTree {
             if (left != null) {
                 if (left.isLeaf()) {
                     left = null;
+                    result = true;
                 //If the Item which is to be deleted is no leav, we have to do a 
                 // little reconstruction in the Tree. 
                 // The deleted Item has an Item on its rigth side. Which now 
@@ -295,8 +271,9 @@ public class DifTreeImpl implements DifTree {
                     int tempIndex = left.getIndex();
                     left = left.getRight();
                     left.setIndex(left.getIndex() + tempIndex);
+                    result = true;
                 } else {
-                    ((DifTreeImpl) left).delHead_();
+                   result = ((DifTreeImpl) left).delHead_();
                 }
             } else if (left == null) {
                 this.setIndex(this.getIndex() + right.getIndex());
@@ -304,8 +281,10 @@ public class DifTreeImpl implements DifTree {
                 DifTree tempRight = right.getRight();
                 this.left = right.getLeft();
                 this.right = tempRight;
+                result = true;
             }
         }
+        return result;
     }
 
     /*
@@ -314,20 +293,23 @@ public class DifTreeImpl implements DifTree {
      * @see stringList.interfaces.DifTree#delTail()
      */
     @Override
-    public void delTail() {
+    public boolean delTail() {
+        boolean result = false;
         //same logic as delHead
         if (!isLeaf()) {
 
             if (right != null) {
                 if (right.isLeaf()) {
                     right = null;
+                    result = true;
                 } else if (right.getRight() == null) {// and right.getLeft !=
                                                       // null
                     int tempIndex = right.getIndex();
                     right = right.getLeft();
                     right.setIndex(right.getIndex() + tempIndex);
+                    result = true;
                 } else {
-                    right.delTail();
+                    result = right.delTail();
                 }
             } else if (right == null) {
                 this.setIndex(this.getIndex() + left.getIndex());
@@ -335,9 +317,11 @@ public class DifTreeImpl implements DifTree {
                 DifTree tempLeft = left.getLeft();
                 this.right = left.getRight();
                 this.left = tempLeft;
+                result = true;
             }
 
         }
+        return result;
 
     }
 

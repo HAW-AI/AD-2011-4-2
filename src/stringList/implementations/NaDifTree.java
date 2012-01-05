@@ -34,32 +34,32 @@ public class NaDifTree implements DifTree {
      * @see stringList.interfaces.DifTree#addHead(java.lang.Object)
      */
     @Override
-    public void addHead(Object o) {
+    public boolean addHead(Object o) {
         
-        
+        return false;
     }
     /* (non-Javadoc)
      * @see stringList.interfaces.DifTree#addTail(java.lang.Object)
      */
     @Override
-    public void addTail(Object o) {
-        
+    public boolean addTail(Object o) {
+        return false;
         
     }
     /* (non-Javadoc)
      * @see stringList.interfaces.DifTree#delHead()
      */
     @Override
-    public void delHead() {
-        // TODO Auto-generated method stub
+    public boolean delHead() {
+        return false;
         
     }
     /* (non-Javadoc)
      * @see stringList.interfaces.DifTree#delTail()
      */
     @Override
-    public void delTail() {
-        // TODO Auto-generated method stub
+    public boolean delTail() {
+       return false;
         
     }
     /* (non-Javadoc)

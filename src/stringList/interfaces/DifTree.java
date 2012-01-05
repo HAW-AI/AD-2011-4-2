@@ -27,18 +27,18 @@ public interface DifTree {
      * Adds an Element to the Front of the Tree/List
      * @param o
      */
-    void addHead(Object o);
+    boolean addHead(Object o);
     /**
      * Adds an Element to the Back of the Tree/List
      * @param o
      */
-    void addTail(Object o);
+    boolean addTail(Object o);
     
     /**
      * del Head or Tail elements.
      */
-    void delHead();
-    void delTail();
+    boolean delHead();
+    boolean delTail();
     
 
     /**
