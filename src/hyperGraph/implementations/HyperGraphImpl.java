@@ -200,17 +200,17 @@ final public class HyperGraphImpl implements HyperGraph {
 		return new HyperGraphImpl(incidenceMatrix.removeRow(indexOfVertex));
 	}
 
-	@Override
-	public String getEdgeToString(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int[] getEdgeAsArray(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public String getEdgeToString(int index) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int[] getEdgeAsArray(int index) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public String toString() {
