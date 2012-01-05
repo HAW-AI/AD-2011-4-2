@@ -15,6 +15,8 @@ public interface InzidenzMatrix {
 	public InzidenzMatrix addRow(int[] newRow);
 	public InzidenzMatrix removeColumn(int column);
 	public InzidenzMatrix removeRow(int row);
+	public int[] getColumn(int columnId);
+	public int[] getRow(int rowId);
 	
 	
 }
