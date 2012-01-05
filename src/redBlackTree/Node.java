@@ -1,6 +1,3 @@
-/**
- * 
- */
 package redBlackTree;
 
 /* Copyright (c) 2012 the authors listed at the following URL, and/or
@@ -29,34 +26,46 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Retrieved from: http://en.literateprograms.org/Red-black_tree_(Java)?oldid=16622
 */
 
-public class main {
+enum Color { RED, BLACK }
 
-	public static void main(String[] args) {
-        RBTree<Integer,Integer> t = new RBTree<Integer,Integer>();
-        t.print();
+class Node<K extends Comparable<? super K>,V>
+{
+    public K key;
+    public V value;
+    public Node<K,V> left;
+    public Node<K,V> right;
+    public Node<K,V> parent;
+    public Color color;
 
-        java.util.Random gen = new java.util.Random();
-
-        for (int i = 0; i < 5000; i++) {
-            int x = gen.nextInt(10000);
-            int y = gen.nextInt(10000);
-
-            t.print();
-            System.out.println("Inserting " + x + " -> " + y);
-            System.out.println();
-
-            t.insert(x, y);
-            assert t.lookup(x).equals(y);
-        }
-        for (int i = 0; i < 60000; i++) {
-            int x = gen.nextInt(10000);
-
-            t.print();
-            System.out.println("Deleting key " + x);
-            System.out.println();
-
-            t.delete(x);
-        }
+    public Node(K key, V value, Color nodeColor, Node<K,V> left, Node<K,V> right) {
+        this.key = key;
+        this.value = value;
+        this.color = nodeColor;
+        this.left = left;
+        this.right = right;
+        if (left  != null)  left.parent = this;
+        if (right != null) right.parent = this;
+        this.parent = null;
     }
-	
+
+    public Node<K,V> grandparent() {
+        assert parent != null; // Not the root node
+        assert parent.parent != null; // Not child of root
+        return parent.parent;
+    }
+
+    public Node<K,V> sibling() {
+        assert parent != null; // Root node has no sibling
+        if (this == parent.left)
+            return parent.right;
+        else
+            return parent.left;
+    }
+
+    public Node<K,V> uncle() {
+        assert parent != null; // Root node has no uncle
+        assert parent.parent != null; // Children of root have no uncle
+        return parent.sibling();
+    }
+
 }
