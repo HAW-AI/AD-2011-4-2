@@ -244,6 +244,67 @@ public class MatrixImpl implements InzidenzMatrix {
 	/**@author Tobias Meurer
 	 * @author Stephan Berngruber
 	 * 
+	 * Gibt eine Spalte (Edge) zurück.
+	 * 
+	 * @param columnId ID der Spalte, die zurückgegeben werden soll
+	 * @return int[] int Array mit 0 und 1 aus einer Spalte 
+	 */
+	@Override
+	public int[] getColumn(int columnId) {
+		if (columnId>=width() || columnId<0) {
+			//Wenn ungültige Spalten nummer übergeben wurde
+			throw new IndexOutOfBoundsException();
+		} else {
+			
+			//Array mit Ergebniswerten
+			int[] result = new int[height()];
+			int currentRow =0;	//Zeile, die momentan abgeabeitet wird
+			
+			for (int index = 0; index < values.length; index++){
+				if (index==columnId+(currentRow*width())) {
+					//Wenn man sich nicht in der zurückzugebenden Spalte befindet, werden die Werte in das neue
+					// ErgebnisArray kopiert.
+					result[currentRow++] = values[index];
+				}
+			}
+			return result;
+		}
+		
+		
+		
+	}
+
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
+	 * Gibt eine Zeile (Vertex) zurück.
+	 * 
+	 * @param rowId ID der Zeile, die zurückgegeben werden soll
+	 * @return int[] int Array mit 0 und 1 aus einer Zeile 
+	 */
+	@Override
+	public int[] getRow(int rowId) {
+		
+		if (rowId>=height() || rowId<0) {
+			//Wenn ungültige Spalten nummer übergeben wurde
+			throw new IndexOutOfBoundsException();
+		} else if (height()>0 && size() == 0){
+			return new int[0];
+		} else {
+			
+			//Array mit Ergebniswerten
+			int[] result = new int[width()];
+			
+			//Entsprechende Zeile in Ergebnisarray kopieren
+			System.arraycopy(values, (rowId*width()), result, 0, width());
+			
+			return result;
+		}
+	}
+
+	/**@author Tobias Meurer
+	 * @author Stephan Berngruber
+	 * 
 	 * String-Rückgabe der Matrix
 	 * 
 	 * @return String, formatiert als Matrix
@@ -354,6 +415,5 @@ public class MatrixImpl implements InzidenzMatrix {
 		}
 		return false;
 	}
-
 
 }

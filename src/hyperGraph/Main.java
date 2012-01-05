@@ -4,6 +4,8 @@
  */
 package hyperGraph;
 
+import java.util.Arrays;
+
 import hyperGraph.interfaces.InzidenzMatrix;
 
 /**
@@ -64,5 +66,12 @@ public class Main {
 		System.out.println("m8");
 		System.out.println(m8);
 		
+		System.out.println(Arrays.toString(m8.getRow(0)));
+		System.out.println(Arrays.toString(m8.getRow(1)));
+		
+		System.out.println(Arrays.toString(m8.getColumn(0)));
+		System.out.println(Arrays.toString(m8.getColumn(1)));
+		System.out.println(Arrays.toString(m8.getColumn(2)));
+		System.out.println(Arrays.toString(m8.getColumn(3)));
 	}
 }

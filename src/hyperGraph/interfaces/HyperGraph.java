@@ -63,7 +63,6 @@ public interface HyperGraph {
 
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return "Not a HyperGraph";
 		}
 
