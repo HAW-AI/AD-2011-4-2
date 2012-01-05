@@ -72,4 +72,14 @@ public class NotAMatrix implements InzidenzMatrix {
 		return "NotAMatrix";
 	}
 
+	@Override
+	public int[] getColumn(int columnId) {
+		return new int[0];
+	}
+
+	@Override
+	public int[] getRow(int rowId) {
+		return new int[0];
+	}
+
 }
