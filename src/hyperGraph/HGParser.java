@@ -12,8 +12,8 @@ import java.lang.Integer;
 import java.lang.reflect.Array;
 
 /**
- * gestohlen von Ben Rexin <benjamin.rexin@haw-hamburg.de> Patrick Detlefsen
- * <patrick.detlefsen@haw-hamburg.de>
+ * gestohlen von Ben Rexin <benjamin.rexin@haw-hamburg.de> 
+ * Patrick Detlefsen <patrick.detlefsen@haw-hamburg.de>
  * 
  * verändert/angepasst von
  * 
@@ -31,8 +31,8 @@ public class HGParser {
 
 	private static HGRawData parse_array(String[] content) {
 		final String[] header = content[0].split(ELEMENT_DELIMITER);
-		int width = Integer.parseInt(header[0]);
-		int height = Integer.parseInt(header[1]);
+		int height = Integer.parseInt(header[0]);
+		int width = Integer.parseInt(header[1]);
 		// body contains strings without the head
 		String[] body = body(content);
 		// List<Integer> values = new ArrayList<Integer>();

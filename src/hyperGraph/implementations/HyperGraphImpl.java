@@ -102,7 +102,8 @@ final public class HyperGraphImpl implements HyperGraph {
 	public HyperGraph addVertex(int[] vertexValues) {
 
 		// get the new Matrix by calling addRow()
-		InzidenzMatrix newIncidenceMatrix = incidenceMatrix.addRow(vertexValues);
+		InzidenzMatrix newIncidenceMatrix = incidenceMatrix
+				.addRow(vertexValues);
 		HyperGraph newHyperGraph = getNewHyperGraph(newIncidenceMatrix);
 		return newHyperGraph;
 	}
@@ -197,6 +198,18 @@ final public class HyperGraphImpl implements HyperGraph {
 	@Override
 	public HyperGraph removeVertex(int indexOfVertex) {
 		return new HyperGraphImpl(incidenceMatrix.removeRow(indexOfVertex));
+	}
+
+	@Override
+	public String getEdgeToString(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int[] getEdgeAsArray(int index) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

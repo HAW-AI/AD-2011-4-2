@@ -18,6 +18,10 @@ public interface HyperGraph {
 
 	public HyperGraph removeVertex(int indexOfVertex);
 
+	public String getEdgeToString(int index);
+
+	public int[] getEdgeAsArray(int index);
+
 	/**
 	 * @author Tobias Meurer
 	 * @author Stephan Berngruber
@@ -63,8 +67,17 @@ public interface HyperGraph {
 
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return "Not a HyperGraph";
+		}
+
+		@Override
+		public String getEdgeToString(int index) {
+			return "Not a HyperGraph";
+		}
+
+		@Override
+		public int[] getEdgeAsArray(int index) {
+			return new int[0];
 		}
 
 	}
