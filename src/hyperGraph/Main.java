@@ -60,5 +60,9 @@ public class Main {
 		System.out.println("m7");
 		System.out.println(m7);
 		
+		InzidenzMatrix m8 = m5.removeRow(0);
+		System.out.println("m8");
+		System.out.println(m8);
+		
 	}
 }
