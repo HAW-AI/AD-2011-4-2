@@ -19,12 +19,11 @@ public class SplitTest {
 		assertEquals("[ neue ,  , funktionale ,  welt,  ]",Arrays.toString(strArray));
 		
 		strArray=SplitImpl.at("\n").from(" neue , , \n funktionale , welt, ");
-		System.out.println(" neue , , \n funktionale , welt, ");
-		System.out.println(Arrays.toString(strArray));
-
-		strArray=SplitImpl.at("||").trim().notEmpty().from(" neue   funktionale welt ");
-		System.out.println(" neue , , funktionale , welt, ");
-		System.out.println(Arrays.toString(strArray));
+		assertEquals("[ neue , , ,  funktionale , welt, ]",Arrays.toString(strArray));
+		
+		strArray=SplitImpl.at(",").trim().notEmpty().from("");
+		assertEquals("[]",Arrays.toString(strArray));
+		
 	}
 
 }
